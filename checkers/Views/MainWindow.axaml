@@ -3,15 +3,489 @@
         xmlns:vm="using:checkers.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
         x:Class="checkers.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="checkers">
-
+        Title="checkers"
+        Padding="20">
+    
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+    
+    <Window.Styles>
+        <Style Selector="Button.light">
+            <Setter Property="Background" Value="#e3c16f"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
+        <Style Selector="Button[IsPointerOver=true].light /template/ ContentPresenter">
+            <Setter Property="Background" Value="#e3c16f"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style Selector="Button.dark">
+            <Setter Property="Background" Value="#b88b4a"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
+        <Style Selector="Button[IsPointerOver=true].dark /template/ ContentPresenter">
+            <Setter Property="Background" Value="#b88b4a"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style Selector="Button.goFrom">
+            <Setter Property="Background" Value="#ff2945"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
+        <Style Selector="Button[IsPointerOver=true].goFrom /template/ ContentPresenter">
+            <Setter Property="Background" Value="#ff2945"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style Selector="Button.goTo">
+            <Setter Property="Background" Value="#00ff1a"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
+        <Style Selector="Button[IsPointerOver=true].goTo /template/ ContentPresenter">
+            <Setter Property="Background" Value="#00ff1a"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+    </Window.Styles>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1">1</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2">2</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3">3</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="4">4</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="5">5</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="6">6</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="7">7</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="8">8</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0">A</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0">B</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0">C</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0">D</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="0">E</TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="0">F</TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="0">G</TextBlock>
+            <TextBlock Grid.Row="8" Grid.Column="0">H</TextBlock>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="1" Classes.light="{Binding SquareTypes[0][0]}" Classes.dark="{Binding !SquareTypes[0][0]}" Classes.goFrom="{Binding FromSquares[0][0]}" Classes.goTo="{Binding ToSquares[0][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>0</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="2" Classes.light="{Binding SquareTypes[0][1]}" Classes.dark="{Binding !SquareTypes[0][1]}" Classes.goFrom="{Binding FromSquares[0][1]}" Classes.goTo="{Binding ToSquares[0][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>1</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="3" Classes.light="{Binding SquareTypes[0][2]}" Classes.dark="{Binding !SquareTypes[0][2]}" Classes.goFrom="{Binding FromSquares[0][2]}" Classes.goTo="{Binding ToSquares[0][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>2</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="4" Classes.light="{Binding SquareTypes[0][3]}" Classes.dark="{Binding !SquareTypes[0][3]}" Classes.goFrom="{Binding FromSquares[0][3]}" Classes.goTo="{Binding ToSquares[0][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>3</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="5" Classes.light="{Binding SquareTypes[0][4]}" Classes.dark="{Binding !SquareTypes[0][4]}" Classes.goFrom="{Binding FromSquares[0][4]}" Classes.goTo="{Binding ToSquares[0][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>4</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="6" Classes.light="{Binding SquareTypes[0][5]}" Classes.dark="{Binding !SquareTypes[0][5]}" Classes.goFrom="{Binding FromSquares[0][5]}" Classes.goTo="{Binding ToSquares[0][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>5</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="7" Classes.light="{Binding SquareTypes[0][6]}" Classes.dark="{Binding !SquareTypes[0][6]}" Classes.goFrom="{Binding FromSquares[0][6]}" Classes.goTo="{Binding ToSquares[0][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>6</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="1" Grid.Column="8" Classes.light="{Binding SquareTypes[0][7]}" Classes.dark="{Binding !SquareTypes[0][7]}" Classes.goFrom="{Binding FromSquares[0][7]}" Classes.goTo="{Binding ToSquares[0][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>7</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[0][7]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="1" Classes.light="{Binding SquareTypes[1][0]}" Classes.dark="{Binding !SquareTypes[1][0]}" Classes.goFrom="{Binding FromSquares[1][0]}" Classes.goTo="{Binding ToSquares[1][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>8</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="2" Classes.light="{Binding SquareTypes[1][1]}" Classes.dark="{Binding !SquareTypes[1][1]}" Classes.goFrom="{Binding FromSquares[1][1]}" Classes.goTo="{Binding ToSquares[1][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>9</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="3" Classes.light="{Binding SquareTypes[1][2]}" Classes.dark="{Binding !SquareTypes[1][2]}" Classes.goFrom="{Binding FromSquares[1][2]}" Classes.goTo="{Binding ToSquares[1][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>10</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="4" Classes.light="{Binding SquareTypes[1][3]}" Classes.dark="{Binding !SquareTypes[1][3]}" Classes.goFrom="{Binding FromSquares[1][3]}" Classes.goTo="{Binding ToSquares[1][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>11</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="5" Classes.light="{Binding SquareTypes[1][4]}" Classes.dark="{Binding !SquareTypes[1][4]}" Classes.goFrom="{Binding FromSquares[1][4]}" Classes.goTo="{Binding ToSquares[1][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>12</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="6" Classes.light="{Binding SquareTypes[1][5]}" Classes.dark="{Binding !SquareTypes[1][5]}" Classes.goFrom="{Binding FromSquares[1][5]}" Classes.goTo="{Binding ToSquares[1][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>13</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="7" Classes.light="{Binding SquareTypes[1][6]}" Classes.dark="{Binding !SquareTypes[1][6]}" Classes.goFrom="{Binding FromSquares[1][6]}" Classes.goTo="{Binding ToSquares[1][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>14</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="2" Grid.Column="8" Classes.light="{Binding SquareTypes[1][7]}" Classes.dark="{Binding !SquareTypes[1][7]}" Classes.goFrom="{Binding FromSquares[1][7]}" Classes.goTo="{Binding ToSquares[1][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>15</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[1][7]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="1" Classes.light="{Binding SquareTypes[2][0]}" Classes.dark="{Binding !SquareTypes[2][0]}" Classes.goFrom="{Binding FromSquares[2][0]}" Classes.goTo="{Binding ToSquares[2][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>16</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="2" Classes.light="{Binding SquareTypes[2][1]}" Classes.dark="{Binding !SquareTypes[2][1]}" Classes.goFrom="{Binding FromSquares[2][1]}" Classes.goTo="{Binding ToSquares[2][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>17</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="3" Classes.light="{Binding SquareTypes[2][2]}" Classes.dark="{Binding !SquareTypes[2][2]}" Classes.goFrom="{Binding FromSquares[2][2]}" Classes.goTo="{Binding ToSquares[2][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>18</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="4" Classes.light="{Binding SquareTypes[2][3]}" Classes.dark="{Binding !SquareTypes[2][3]}" Classes.goFrom="{Binding FromSquares[2][3]}" Classes.goTo="{Binding ToSquares[2][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>19</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="5" Classes.light="{Binding SquareTypes[2][4]}" Classes.dark="{Binding !SquareTypes[2][4]}" Classes.goFrom="{Binding FromSquares[2][4]}" Classes.goTo="{Binding ToSquares[2][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>20</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="6" Classes.light="{Binding SquareTypes[2][5]}" Classes.dark="{Binding !SquareTypes[2][5]}" Classes.goFrom="{Binding FromSquares[2][5]}" Classes.goTo="{Binding ToSquares[2][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>21</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="7" Classes.light="{Binding SquareTypes[2][6]}" Classes.dark="{Binding !SquareTypes[2][6]}" Classes.goFrom="{Binding FromSquares[2][6]}" Classes.goTo="{Binding ToSquares[2][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>22</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="3" Grid.Column="8" Classes.light="{Binding SquareTypes[2][7]}" Classes.dark="{Binding !SquareTypes[2][7]}" Classes.goFrom="{Binding FromSquares[2][7]}" Classes.goTo="{Binding ToSquares[2][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>23</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[2][7]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="1" Classes.light="{Binding SquareTypes[3][0]}" Classes.dark="{Binding !SquareTypes[3][0]}" Classes.goFrom="{Binding FromSquares[3][0]}" Classes.goTo="{Binding ToSquares[3][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>24</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="2" Classes.light="{Binding SquareTypes[3][1]}" Classes.dark="{Binding !SquareTypes[3][1]}" Classes.goFrom="{Binding FromSquares[3][1]}" Classes.goTo="{Binding ToSquares[3][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>25</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="3" Classes.light="{Binding SquareTypes[3][2]}" Classes.dark="{Binding !SquareTypes[3][2]}" Classes.goFrom="{Binding FromSquares[3][2]}" Classes.goTo="{Binding ToSquares[3][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>26</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="4" Classes.light="{Binding SquareTypes[3][3]}" Classes.dark="{Binding !SquareTypes[3][3]}" Classes.goFrom="{Binding FromSquares[3][3]}" Classes.goTo="{Binding ToSquares[3][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>27</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="5" Classes.light="{Binding SquareTypes[3][4]}" Classes.dark="{Binding !SquareTypes[3][4]}" Classes.goFrom="{Binding FromSquares[3][4]}" Classes.goTo="{Binding ToSquares[3][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>28</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="6" Classes.light="{Binding SquareTypes[3][5]}" Classes.dark="{Binding !SquareTypes[3][5]}" Classes.goFrom="{Binding FromSquares[3][5]}" Classes.goTo="{Binding ToSquares[3][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>29</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="7" Classes.light="{Binding SquareTypes[3][6]}" Classes.dark="{Binding !SquareTypes[3][6]}" Classes.goFrom="{Binding FromSquares[3][6]}" Classes.goTo="{Binding ToSquares[3][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>30</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="4" Grid.Column="8" Classes.light="{Binding SquareTypes[3][7]}" Classes.dark="{Binding !SquareTypes[3][7]}" Classes.goFrom="{Binding FromSquares[3][7]}" Classes.goTo="{Binding ToSquares[3][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>31</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[3][7]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="1" Classes.light="{Binding SquareTypes[4][0]}" Classes.dark="{Binding !SquareTypes[4][0]}" Classes.goFrom="{Binding FromSquares[4][0]}" Classes.goTo="{Binding ToSquares[4][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>32</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="2" Classes.light="{Binding SquareTypes[4][1]}" Classes.dark="{Binding !SquareTypes[4][1]}" Classes.goFrom="{Binding FromSquares[4][1]}" Classes.goTo="{Binding ToSquares[4][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>33</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="3" Classes.light="{Binding SquareTypes[4][2]}" Classes.dark="{Binding !SquareTypes[4][2]}" Classes.goFrom="{Binding FromSquares[4][2]}" Classes.goTo="{Binding ToSquares[4][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>34</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="4" Classes.light="{Binding SquareTypes[4][3]}" Classes.dark="{Binding !SquareTypes[4][3]}" Classes.goFrom="{Binding FromSquares[4][3]}" Classes.goTo="{Binding ToSquares[4][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>35</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="5" Classes.light="{Binding SquareTypes[4][4]}" Classes.dark="{Binding !SquareTypes[4][4]}" Classes.goFrom="{Binding FromSquares[4][4]}" Classes.goTo="{Binding ToSquares[4][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>36</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="6" Classes.light="{Binding SquareTypes[4][5]}" Classes.dark="{Binding !SquareTypes[4][5]}" Classes.goFrom="{Binding FromSquares[4][5]}" Classes.goTo="{Binding ToSquares[4][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>37</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="7" Classes.light="{Binding SquareTypes[4][6]}" Classes.dark="{Binding !SquareTypes[4][6]}" Classes.goFrom="{Binding FromSquares[4][6]}" Classes.goTo="{Binding ToSquares[4][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>38</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="5" Grid.Column="8" Classes.light="{Binding SquareTypes[4][7]}" Classes.dark="{Binding !SquareTypes[4][7]}" Classes.goFrom="{Binding FromSquares[4][7]}" Classes.goTo="{Binding ToSquares[4][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>39</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[4][7]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="1" Classes.light="{Binding SquareTypes[5][0]}" Classes.dark="{Binding !SquareTypes[5][0]}" Classes.goFrom="{Binding FromSquares[5][0]}" Classes.goTo="{Binding ToSquares[5][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>40</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="2" Classes.light="{Binding SquareTypes[5][1]}" Classes.dark="{Binding !SquareTypes[5][1]}" Classes.goFrom="{Binding FromSquares[5][1]}" Classes.goTo="{Binding ToSquares[5][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>41</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="3" Classes.light="{Binding SquareTypes[5][2]}" Classes.dark="{Binding !SquareTypes[5][2]}" Classes.goFrom="{Binding FromSquares[5][2]}" Classes.goTo="{Binding ToSquares[5][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>42</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="4" Classes.light="{Binding SquareTypes[5][3]}" Classes.dark="{Binding !SquareTypes[5][3]}" Classes.goFrom="{Binding FromSquares[5][3]}" Classes.goTo="{Binding ToSquares[5][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>43</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="5" Classes.light="{Binding SquareTypes[5][4]}" Classes.dark="{Binding !SquareTypes[5][4]}" Classes.goFrom="{Binding FromSquares[5][4]}" Classes.goTo="{Binding ToSquares[5][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>44</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="6" Classes.light="{Binding SquareTypes[5][5]}" Classes.dark="{Binding !SquareTypes[5][5]}" Classes.goFrom="{Binding FromSquares[5][5]}" Classes.goTo="{Binding ToSquares[5][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>45</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="7" Classes.light="{Binding SquareTypes[5][6]}" Classes.dark="{Binding !SquareTypes[5][6]}" Classes.goFrom="{Binding FromSquares[5][6]}" Classes.goTo="{Binding ToSquares[5][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>46</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="6" Grid.Column="8" Classes.light="{Binding SquareTypes[5][7]}" Classes.dark="{Binding !SquareTypes[5][7]}" Classes.goFrom="{Binding FromSquares[5][7]}" Classes.goTo="{Binding ToSquares[5][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>47</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[5][7]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="1" Classes.light="{Binding SquareTypes[6][0]}" Classes.dark="{Binding !SquareTypes[6][0]}" Classes.goFrom="{Binding FromSquares[6][0]}" Classes.goTo="{Binding ToSquares[6][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>48</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="2" Classes.light="{Binding SquareTypes[6][1]}" Classes.dark="{Binding !SquareTypes[6][1]}" Classes.goFrom="{Binding FromSquares[6][1]}" Classes.goTo="{Binding ToSquares[6][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>49</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="3" Classes.light="{Binding SquareTypes[6][2]}" Classes.dark="{Binding !SquareTypes[6][2]}" Classes.goFrom="{Binding FromSquares[6][2]}" Classes.goTo="{Binding ToSquares[6][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>50</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="4" Classes.light="{Binding SquareTypes[6][3]}" Classes.dark="{Binding !SquareTypes[6][3]}" Classes.goFrom="{Binding FromSquares[6][3]}" Classes.goTo="{Binding ToSquares[6][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>51</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="5" Classes.light="{Binding SquareTypes[6][4]}" Classes.dark="{Binding !SquareTypes[6][4]}" Classes.goFrom="{Binding FromSquares[6][4]}" Classes.goTo="{Binding ToSquares[6][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>52</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="6" Classes.light="{Binding SquareTypes[6][5]}" Classes.dark="{Binding !SquareTypes[6][5]}" Classes.goFrom="{Binding FromSquares[6][5]}" Classes.goTo="{Binding ToSquares[6][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>53</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="7" Classes.light="{Binding SquareTypes[6][6]}" Classes.dark="{Binding !SquareTypes[6][6]}" Classes.goFrom="{Binding FromSquares[6][6]}" Classes.goTo="{Binding ToSquares[6][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>54</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="7" Grid.Column="8" Classes.light="{Binding SquareTypes[6][7]}" Classes.dark="{Binding !SquareTypes[6][7]}" Classes.goFrom="{Binding FromSquares[6][7]}" Classes.goTo="{Binding ToSquares[6][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>55</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[6][7]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="1" Classes.light="{Binding SquareTypes[7][0]}" Classes.dark="{Binding !SquareTypes[7][0]}" Classes.goFrom="{Binding FromSquares[7][0]}" Classes.goTo="{Binding ToSquares[7][0]}" >
+                <Button.CommandParameter>
+                    <s:Int32>56</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][0]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="2" Classes.light="{Binding SquareTypes[7][1]}" Classes.dark="{Binding !SquareTypes[7][1]}" Classes.goFrom="{Binding FromSquares[7][1]}" Classes.goTo="{Binding ToSquares[7][1]}" >
+                <Button.CommandParameter>
+                    <s:Int32>57</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][1]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="3" Classes.light="{Binding SquareTypes[7][2]}" Classes.dark="{Binding !SquareTypes[7][2]}" Classes.goFrom="{Binding FromSquares[7][2]}" Classes.goTo="{Binding ToSquares[7][2]}" >
+                <Button.CommandParameter>
+                    <s:Int32>58</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][2]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="4" Classes.light="{Binding SquareTypes[7][3]}" Classes.dark="{Binding !SquareTypes[7][3]}" Classes.goFrom="{Binding FromSquares[7][3]}" Classes.goTo="{Binding ToSquares[7][3]}" >
+                <Button.CommandParameter>
+                    <s:Int32>59</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][3]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="5" Classes.light="{Binding SquareTypes[7][4]}" Classes.dark="{Binding !SquareTypes[7][4]}" Classes.goFrom="{Binding FromSquares[7][4]}" Classes.goTo="{Binding ToSquares[7][4]}" >
+                <Button.CommandParameter>
+                    <s:Int32>60</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][4]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="6" Classes.light="{Binding SquareTypes[7][5]}" Classes.dark="{Binding !SquareTypes[7][5]}" Classes.goFrom="{Binding FromSquares[7][5]}" Classes.goTo="{Binding ToSquares[7][5]}" >
+                <Button.CommandParameter>
+                    <s:Int32>61</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][5]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="7" Classes.light="{Binding SquareTypes[7][6]}" Classes.dark="{Binding !SquareTypes[7][6]}" Classes.goFrom="{Binding FromSquares[7][6]}" Classes.goTo="{Binding ToSquares[7][6]}" >
+                <Button.CommandParameter>
+                    <s:Int32>62</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][6]}"/>
+            </Button>
+            <Button Command="{Binding SelectSquareCommand}" Grid.Row="8" Grid.Column="8" Classes.light="{Binding SquareTypes[7][7]}" Classes.dark="{Binding !SquareTypes[7][7]}" Classes.goFrom="{Binding FromSquares[7][7]}" Classes.goTo="{Binding ToSquares[7][7]}" >
+                <Button.CommandParameter>
+                    <s:Int32>63</s:Int32>
+                </Button.CommandParameter>
+                <Ellipse Width="40" Height="40" Fill="{Binding PiecesColors[7][7]}"/>
+            </Button>
+        </Grid>
+    </Grid>
 </Window>
