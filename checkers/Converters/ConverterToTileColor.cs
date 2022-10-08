@@ -16,9 +16,9 @@ public class ConverterToTileColor : IValueConverter
         if (tileType == Tile.Dark)
             return new SolidColorBrush(Color.Parse("#b88b4a"));
         if (tileType == Tile.Selected)
-            return new SolidColorBrush(Color.Parse("#00ff1a"));
-        if (tileType == Tile.Highlighted)
             return new SolidColorBrush(Color.Parse("#ff2945"));
+        if (tileType == Tile.Highlighted)
+            return new SolidColorBrush(Color.Parse("#00ff1a"));
         return "";
     }
 

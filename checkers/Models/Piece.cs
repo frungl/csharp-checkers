@@ -62,7 +62,7 @@ public class Piece
                         continue;
                 }
                 
-                if(!mustJump && !findPiece && dirX == possibleDir)
+                if(!mustJump && !findPiece && (_isQueen || dirX == possibleDir))
                     moves.AddTo(_x + dirX, _y + dirY);
                 
                 for(var jump=2; jump<=jumpSize; jump++)
