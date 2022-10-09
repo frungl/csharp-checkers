@@ -3,12 +3,11 @@
         xmlns:vm="using:checkers.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
         x:Class="checkers.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="checkers"
-        Padding="20">
+        x:Name="window">
     
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -22,9 +21,16 @@
             <Setter Property="Background" Value="#b88b4a"/>
         </Style>
         <Style Selector="Button[IsPointerOver=true] /template/ ContentPresenter">
-            <Setter Property="Background" Value="#00000000"/>
+            <Setter Property="Background" Value="Gray"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
     </Window.Styles>
+    
+    <Border x:Name="border">
+        <StackPanel x:Name="panel">
+            <TextBlock x:Name="textBlock"/>
+            <Grid x:Name="grid"/>
+        </StackPanel>
+    </Border>
 </Window>

@@ -1,19 +1,10 @@
-using System;
-using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
-using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Shapes;
 using Avalonia.Data;
+using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Platform;
-using Avalonia.Styling;
 using checkers.Converters;
-using checkers.Models;
 using checkers.ViewModels;
-using Brush = System.Drawing.Brush;
-
 namespace checkers.Views
 {
     public partial class MainWindow : Window
@@ -22,28 +13,33 @@ namespace checkers.Views
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
-            var canvas = new Canvas
-            {
-                Width = 400,
-                Height = 400
-            };
-            var grid = new Grid();
+            
+            MinWidth = 1000;
+            MinHeight = 1024;
+            CanResize = true;
+            WindowState = WindowState.Maximized;
+            Background = Brushes.Aquamarine;
+            
+            grid.Width = 800;
+            grid.Height = 800;
             for(var i=0;i<8;i++)
             {
-                grid.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Auto));
-                grid.ColumnDefinitions.Add(new ColumnDefinition(1, GridUnitType.Auto));
+                grid.RowDefinitions.Add(new RowDefinition(0.125, GridUnitType.Star));
+                grid.ColumnDefinitions.Add(new ColumnDefinition(0.125, GridUnitType.Star));
             }
             var buttons = new Button[8, 8];
-            
+
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
+                    
                     buttons[i, j] = new Button();
                     buttons[i, j].SetValue(Grid.RowProperty, i);
                     buttons[i, j].SetValue(Grid.ColumnProperty, j);
-                    buttons[i, j].Width = 50;
-                    buttons[i, j].Height = 50;
+                    buttons[i, j].HorizontalAlignment = HorizontalAlignment.Stretch;
+                    buttons[i, j].VerticalAlignment = VerticalAlignment.Stretch;
+                    buttons[i, j].Padding = new Thickness(10);
                     buttons[i, j].Command = ((MainWindowViewModel)DataContext).SelectSquareCommand;
                     buttons[i, j].CommandParameter = i * 8 + j;
                     
@@ -66,7 +62,22 @@ namespace checkers.Views
                     grid.Children.Add(buttons[i, j]);
                 }
             }
-            Content = grid;
+            
+            var bindingText = new Binding 
+            { 
+                Source = (MainWindowViewModel)DataContext, 
+                Path = "CurrentPlayer",
+                Converter = new ConverterPlayerToText()
+            };
+
+            textBlock.Bind(TextBlock.TextProperty, bindingText);
+            textBlock.FontSize = 20;
+            textBlock.FontWeight = FontWeight.Bold;
+            textBlock.VerticalAlignment = VerticalAlignment.Center;
+            textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            
+            border.VerticalAlignment = VerticalAlignment.Center;
+            border.HorizontalAlignment = HorizontalAlignment.Center;
         }
     }
 }

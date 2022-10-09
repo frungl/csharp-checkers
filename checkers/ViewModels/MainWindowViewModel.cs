@@ -10,8 +10,8 @@ namespace checkers.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private Board _board;
-        private Move? _move;
+        private Game _currentGame;
+        private Move? _currentMove;
         
         private ObservableCollection<ObservableCollection<Tile>> _gameTiles;
         
@@ -37,12 +37,20 @@ namespace checkers.ViewModels
                 tempPiecesColors.Add(new ObservableCollection<Piece?>());
                 for (var j = 0; j < Board.BoardSize; j++)
                 {
-                    tempPiecesColors[i].Add(_board.GetPiece(i, j));
+                    tempPiecesColors[i].Add(_currentGame._board.GetPiece(i, j));
                 }
             }
             PiecesColors = tempPiecesColors;
         }
         
+        private Player _currentPlayer;
+        
+        public Player CurrentPlayer
+        {
+            get => _currentPlayer;
+            set => this.RaiseAndSetIfChanged(ref _currentPlayer, value);
+        }
+
         private void UpdateGameTiles()
         {
             var tempGameTiles = new ObservableCollection<ObservableCollection<Tile>>();
@@ -51,7 +59,7 @@ namespace checkers.ViewModels
                 tempGameTiles.Add(new ObservableCollection<Tile>());
                 for (var j = 0; j < Board.BoardSize; j++)
                 {
-                    if (_board.IsLightField(i, j))
+                    if (_currentGame._board.IsLightField(i, j))
                     {
                         tempGameTiles[i].Add(Tile.Light);
                     }
@@ -61,10 +69,10 @@ namespace checkers.ViewModels
                     }
                 }
             }
-            if (_move != null)
+            if (_currentMove != null)
             {
-                tempGameTiles[_move.FromX][_move.FromY] = Tile.Selected;
-                foreach (var (x, y) in _move.To)
+                tempGameTiles[_currentMove.FromX][_currentMove.FromY] = Tile.Selected;
+                foreach (var (x, y) in _currentMove.To)
                 {
                     tempGameTiles[x][y] = Tile.Highlighted;
                 }
@@ -72,38 +80,50 @@ namespace checkers.ViewModels
             GameTiles = tempGameTiles;
         }
         
-        void UpdateMove(int x, int y)
+        private void UpdateCurrentPlayer()
         {
-            if(_move != null)
+            CurrentPlayer = _currentGame.GetCurrentPlayer();
+        }
+        
+        private void UpdateMove(int x, int y)
+        {
+            if(_currentMove != null)
             {
-                if (_move.IsPossible(x, y))
+                if (_currentMove.IsPossible(x, y))
                 {
-                    var movePiece = _board.GetPiece(_move.FromX, _move.FromY);
-                    _board.ApplyMove(movePiece!, x, y, _move.IsTaking);
-                    _move = null;
+                    var movePiece = _currentGame._board.GetPiece(_currentMove.FromX, _currentMove.FromY);
+                    _currentMove = _currentGame.ApplyMove(movePiece!, x, y);
                     UpdatePieces();
+                    UpdateCurrentPlayer();
                 }
                 else
                 {
-                    if (_move.FromX == x && _move.FromY == y)
+                    if (_currentMove.FromX == x && _currentMove.FromY == y)
                     {
-                        _move = null;
+                        if(_currentGame.IsPossibleMove(null)) 
+                            _currentMove = null;
                     }
                     else
                     {
-                        var piece = _board.GetPiece(x, y);
+                        var piece = _currentGame._board.GetPiece(x, y);
+                        Move? tempMove = null;
                         if (piece != null)
-                            _move = piece.getMoves(_board);
-                        else
-                            _move = null;
+                            tempMove = piece.getMoves(_currentGame._board);
+                        if (_currentGame.IsPossibleMove(tempMove))
+                            _currentMove = tempMove;
                     }
                 }
             }
             else
             {
-                var piece = _board.GetPiece(x, y);
+                var piece = _currentGame._board.GetPiece(x, y);
+                Move? tempMove = null;
                 if (piece != null)
-                    _move = piece.getMoves(_board);
+                    tempMove = piece.getMoves(_currentGame._board);
+                if (_currentGame.IsPossibleMove(tempMove))
+                {
+                    _currentMove = tempMove;
+                }
             }
             UpdateGameTiles();
         }
@@ -112,14 +132,15 @@ namespace checkers.ViewModels
 
         void SelectSquare(Int32 singleCoord)
         {
-            var (x, y) = _board.ToCoords(singleCoord);
+            var (x, y) = _currentGame._board.ToCoords(singleCoord);
             UpdateMove(x, y);
         }
         
         public MainWindowViewModel()
         {
-            _board = new Board();
-            _move = null;
+            _currentGame = new Game();
+            _currentMove = null;
+            _currentPlayer = _currentGame.GetCurrentPlayer();
             UpdatePieces();
             UpdateGameTiles();
             SelectSquareCommand = ReactiveCommand.Create<Int32>(SelectSquare);

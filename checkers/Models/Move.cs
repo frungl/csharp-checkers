@@ -4,7 +4,7 @@ using Coords = System.Tuple<int, int>;
 
 namespace checkers.Models;
 
-public record Move(int FromX, int FromY, List<Coords> To, Boolean IsTaking)
+public record Move(int FromX, int FromY, List<Coords> To, bool IsTaking)
 {
     public void AddTo(int x, int y)
     {

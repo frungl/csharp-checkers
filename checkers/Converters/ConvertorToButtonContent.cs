@@ -4,6 +4,7 @@ using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
+using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using checkers.Models;
@@ -23,8 +24,8 @@ public class ConverterToButtonContent : IValueConverter
             return new Image
             {
                 Source = new Bitmap(assets.Open(uri)),
-                Width = 40,
-                Height = 40
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
             };
         }
 
