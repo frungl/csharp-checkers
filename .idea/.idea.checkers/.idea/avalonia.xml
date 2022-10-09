@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="checkers/App.axaml" value="checkers/checkers.csproj" />
+        <entry key="checkers/Views/GameView.axaml" value="checkers/checkers.csproj" />
         <entry key="checkers/Views/MainWindow.axaml" value="checkers/checkers.csproj" />
       </map>
     </option>

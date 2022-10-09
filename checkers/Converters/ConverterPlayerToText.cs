@@ -7,15 +7,16 @@ namespace checkers.Converters;
 
 public class ConverterPlayerToText : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var player = value as Player;
-        if (player.IsLightPlayer())
-            return "Light can move";
-        return "Dark can move";
+        if(value is Player player)
+        {
+            return $"{(player!.IsLightPlayer() ? "White" : "Black")} can move";
+        }
+        return "";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
     }

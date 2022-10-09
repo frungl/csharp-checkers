@@ -4,6 +4,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using checkers.Converters;
+using checkers.Models;
 using checkers.ViewModels;
 namespace checkers.Views
 {
@@ -41,7 +42,7 @@ namespace checkers.Views
                     buttons[i, j].VerticalAlignment = VerticalAlignment.Stretch;
                     buttons[i, j].Padding = new Thickness(10);
                     buttons[i, j].Command = ((MainWindowViewModel)DataContext).SelectSquareCommand;
-                    buttons[i, j].CommandParameter = i * 8 + j;
+                    buttons[i, j].CommandParameter = new Coordinate(i, j);
                     
                     var bindingTileColor = new Binding 
                     { 
@@ -54,7 +55,7 @@ namespace checkers.Views
                     var bindingPiecesTypes = new Binding 
                     { 
                         Source = (MainWindowViewModel)DataContext, 
-                        Path = "PiecesColors[" + i + "][" + j + "]",
+                        Path = "PiecesTypes[" + i + "][" + j + "]",
                         Converter = new ConverterToButtonContent()
                     };
                     buttons[i, j].Bind(ContentProperty, bindingPiecesTypes);

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 using System.Reactive;
-using Avalonia.Media;
 using checkers.Models;
 using ReactiveUI;
 
@@ -10,7 +7,7 @@ namespace checkers.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private Game _currentGame;
+        private readonly Game _currentGame;
         private Move? _currentMove;
         
         private ObservableCollection<ObservableCollection<Tile>> _gameTiles;
@@ -21,26 +18,26 @@ namespace checkers.ViewModels
             set => this.RaiseAndSetIfChanged(ref _gameTiles, value);
         }
         
-        private ObservableCollection<ObservableCollection<Piece?>> _piecesColors;
+        private ObservableCollection<ObservableCollection<Piece?>> _piecesTypes;
         
-        public ObservableCollection<ObservableCollection<Piece?>> PiecesColors
+        public ObservableCollection<ObservableCollection<Piece?>> PiecesTypes
         {
-            get => _piecesColors;
-            set => this.RaiseAndSetIfChanged(ref _piecesColors, value);
+            get => _piecesTypes;
+            set => this.RaiseAndSetIfChanged(ref _piecesTypes, value);
         }
 
         private void UpdatePieces()
         {
-            var tempPiecesColors = new ObservableCollection<ObservableCollection<Piece?>>();
+            var tempPiecesTypes = new ObservableCollection<ObservableCollection<Piece?>>();
             for (var i = 0; i < Board.BoardSize; i++)
             {
-                tempPiecesColors.Add(new ObservableCollection<Piece?>());
+                tempPiecesTypes.Add(new ObservableCollection<Piece?>());
                 for (var j = 0; j < Board.BoardSize; j++)
                 {
-                    tempPiecesColors[i].Add(_currentGame._board.GetPiece(i, j));
+                    tempPiecesTypes[i].Add(_currentGame.Board.GetPiece(new Coordinate(i, j)));
                 }
             }
-            PiecesColors = tempPiecesColors;
+            PiecesTypes = tempPiecesTypes;
         }
         
         private Player _currentPlayer;
@@ -59,19 +56,12 @@ namespace checkers.ViewModels
                 tempGameTiles.Add(new ObservableCollection<Tile>());
                 for (var j = 0; j < Board.BoardSize; j++)
                 {
-                    if (_currentGame._board.IsLightField(i, j))
-                    {
-                        tempGameTiles[i].Add(Tile.Light);
-                    }
-                    else
-                    {
-                        tempGameTiles[i].Add(Tile.Dark);
-                    }
+                    tempGameTiles[i].Add(Board.IsLightField(new Coordinate(i, j)) ? Tile.Light : Tile.Dark);
                 }
             }
             if (_currentMove != null)
             {
-                tempGameTiles[_currentMove.FromX][_currentMove.FromY] = Tile.Selected;
+                tempGameTiles[_currentMove.From.X][_currentMove.From.Y] = Tile.Selected;
                 foreach (var (x, y) in _currentMove.To)
                 {
                     tempGameTiles[x][y] = Tile.Highlighted;
@@ -85,30 +75,30 @@ namespace checkers.ViewModels
             CurrentPlayer = _currentGame.GetCurrentPlayer();
         }
         
-        private void UpdateMove(int x, int y)
+        private void UpdateMove(Coordinate moveTo)
         {
             if(_currentMove != null)
             {
-                if (_currentMove.IsPossible(x, y))
+                if (_currentMove.IsPossible(moveTo))
                 {
-                    var movePiece = _currentGame._board.GetPiece(_currentMove.FromX, _currentMove.FromY);
-                    _currentMove = _currentGame.ApplyMove(movePiece!, x, y);
+                    var movePiece = _currentGame.Board.GetPiece(_currentMove.From);
+                    _currentMove = _currentGame.ApplyMove(movePiece!, moveTo);
                     UpdatePieces();
                     UpdateCurrentPlayer();
                 }
                 else
                 {
-                    if (_currentMove.FromX == x && _currentMove.FromY == y)
+                    if (_currentMove.From == moveTo)
                     {
                         if(_currentGame.IsPossibleMove(null)) 
                             _currentMove = null;
                     }
                     else
                     {
-                        var piece = _currentGame._board.GetPiece(x, y);
+                        var piece = _currentGame.Board.GetPiece(moveTo);
                         Move? tempMove = null;
                         if (piece != null)
-                            tempMove = piece.getMoves(_currentGame._board);
+                            tempMove = piece.GetMoves(_currentGame.Board);
                         if (_currentGame.IsPossibleMove(tempMove))
                             _currentMove = tempMove;
                     }
@@ -116,10 +106,10 @@ namespace checkers.ViewModels
             }
             else
             {
-                var piece = _currentGame._board.GetPiece(x, y);
+                var piece = _currentGame.Board.GetPiece(moveTo);
                 Move? tempMove = null;
                 if (piece != null)
-                    tempMove = piece.getMoves(_currentGame._board);
+                    tempMove = piece.GetMoves(_currentGame.Board);
                 if (_currentGame.IsPossibleMove(tempMove))
                 {
                     _currentMove = tempMove;
@@ -128,12 +118,11 @@ namespace checkers.ViewModels
             UpdateGameTiles();
         }
         
-        public ReactiveCommand<Int32, Unit> SelectSquareCommand { get; }
+        public ReactiveCommand<Coordinate, Unit> SelectSquareCommand { get; }
 
-        void SelectSquare(Int32 singleCoord)
+        void SelectSquare(Coordinate coordinate)
         {
-            var (x, y) = _currentGame._board.ToCoords(singleCoord);
-            UpdateMove(x, y);
+            UpdateMove(coordinate);
         }
         
         public MainWindowViewModel()
@@ -141,9 +130,11 @@ namespace checkers.ViewModels
             _currentGame = new Game();
             _currentMove = null;
             _currentPlayer = _currentGame.GetCurrentPlayer();
+            _gameTiles = new ObservableCollection<ObservableCollection<Tile>>();
+            _piecesTypes = new ObservableCollection<ObservableCollection<Piece?>>();
             UpdatePieces();
             UpdateGameTiles();
-            SelectSquareCommand = ReactiveCommand.Create<Int32>(SelectSquare);
+            SelectSquareCommand = ReactiveCommand.Create<Coordinate>(SelectSquare);
         }
     }
 }

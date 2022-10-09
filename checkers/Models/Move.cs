@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Coords = System.Tuple<int, int>;
+﻿using System.Collections.Generic;
 
 namespace checkers.Models;
 
-public record Move(int FromX, int FromY, List<Coords> To, bool IsTaking)
+public record Move(Coordinate From, HashSet<Coordinate> To, bool IsTaking)
 {
-    public void AddTo(int x, int y)
+    public void AddTo(Coordinate to)
     {
-        To.Add(new Coords(x, y));
+        To.Add(to);
     }
-    public bool IsPossible(int x, int y)
+    public bool IsPossible(Coordinate c)
     {
-        return To.Contains(new Coords(x, y));
+        return To.Contains(c);
     }
 }

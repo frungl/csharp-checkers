@@ -2,8 +2,6 @@
 
 namespace checkers.Models;
 
-using Coords = System.Tuple<int, int>;
-
 public class Player
 {
     private bool LightPlayer;
@@ -17,7 +15,7 @@ public class Player
         {
             for(var j=0;j<Board.BoardSize;j++)
             {
-                var piece = board.GetPiece(i, j);
+                var piece = board.GetPiece(new Coordinate(i, j));
                 if(piece != null && piece.IsLight() == LightPlayer){
                     pieces.Add(piece);
                 }
@@ -31,7 +29,7 @@ public class Player
         var pieces = GetAllPieces(board);
         foreach(var piece in pieces)
         {
-            moves.Add(piece.getMoves(board));
+            moves.Add(piece.GetMoves(board));
         }
         if(moves.Exists(x => x.IsTaking))
             moves.RemoveAll(x => !x.IsTaking);

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace checkers.Models;
-
-using Coords = Tuple<int, int>;
 
 public class Piece
 {
@@ -18,7 +15,7 @@ public class Piece
     
     public bool IsQueen() => _isQueen;
     
-    public Coords GetCoords() => new (_x, _y);
+    public Coordinate GetCoords() => new (_x, _y);
     
     public void UpdateQueenStatus()
     {
@@ -34,10 +31,10 @@ public class Piece
         UpdateQueenStatus();
     }
 
-    public Move getMoves(Board board)
+    public Move GetMoves(Board board)
     {
-        var moves = new Move(_x, _y, new List<Coords>(), false);
-        var movesJumps = new Move(_x, _y, new List<Coords>(), true);
+        var moves = new Move(new Coordinate(_x, _y), new HashSet<Coordinate>(), false);
+        var movesJumps = new Move(new Coordinate(_x, _y), new HashSet<Coordinate>(), true);
         var jumpSize = _isQueen ? 7 : 2;
         var mustJump = false;
         var directions = new List<int> { -1, 1 };
@@ -49,12 +46,12 @@ public class Piece
                 if(dirX == 0 && dirY == 0) 
                     continue;
                 
-                if(board.IsOverBoard(_x + dirX, _y + dirY))
+                if(Board.IsOverBoard(new Coordinate(_x + dirX, _y + dirY)))
                     continue;
                 
                 var findPiece = false;
                 
-                var piece = board.GetPiece(_x + dirX, _y + dirY);
+                var piece = board.GetPiece(new Coordinate(_x + dirX, _y + dirY));
                 if(piece != null)
                 {
                     findPiece = true;
@@ -63,24 +60,24 @@ public class Piece
                 }
                 
                 if(!mustJump && !findPiece && (_isQueen || dirX == possibleDir))
-                    moves.AddTo(_x + dirX, _y + dirY);
+                    moves.AddTo(new Coordinate(_x + dirX, _y + dirY));
                 
                 for(var jump=2; jump<=jumpSize; jump++)
                 {
-                    if(board.IsOverBoard(_x + dirX * jump, _y + dirY * jump))
+                    if(Board.IsOverBoard(new Coordinate(_x + dirX * jump, _y + dirY * jump)))
                         break;
 
                     if (findPiece)
                     {
-                        if (board.GetPiece(_x + dirX * jump, _y + dirY * jump) != null)
+                        if (board.GetPiece(new Coordinate(_x + dirX * jump, _y + dirY * jump)) != null)
                             break;
                         
                         mustJump = true;
-                        movesJumps.AddTo(_x + dirX * jump, _y + dirY * jump);
+                        movesJumps.AddTo(new Coordinate(_x + dirX * jump, _y + dirY * jump));
                     }
                     else
                     {
-                        piece = board.GetPiece(_x + dirX * jump, _y + dirY * jump);
+                        piece = board.GetPiece(new Coordinate(_x + dirX * jump, _y + dirY * jump));
                         if (piece != null)
                         {
                             findPiece = true;
@@ -91,7 +88,7 @@ public class Piece
 
 
                     if(_isQueen && !mustJump && !findPiece)
-                        moves.AddTo(_x + dirX * jump, _y + dirY * jump);
+                        moves.AddTo(new Coordinate(_x + dirX * jump, _y + dirY * jump));
                 }
             }
         }
