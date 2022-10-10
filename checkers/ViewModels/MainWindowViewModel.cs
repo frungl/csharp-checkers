@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Reactive;
+using Avalonia;
+using Avalonia.Controls;
 using checkers.Models;
 using ReactiveUI;
 
@@ -25,6 +28,14 @@ namespace checkers.ViewModels
             get => _piecesTypes;
             set => this.RaiseAndSetIfChanged(ref _piecesTypes, value);
         }
+        
+        private GameStatus _currentGameStatus;
+        
+        public GameStatus CurrentGameStatus
+        {
+            get => _currentGameStatus;
+            set => this.RaiseAndSetIfChanged(ref _currentGameStatus, value);
+        }
 
         private void UpdatePieces()
         {
@@ -38,14 +49,6 @@ namespace checkers.ViewModels
                 }
             }
             PiecesTypes = tempPiecesTypes;
-        }
-        
-        private Player _currentPlayer;
-        
-        public Player CurrentPlayer
-        {
-            get => _currentPlayer;
-            set => this.RaiseAndSetIfChanged(ref _currentPlayer, value);
         }
 
         private void UpdateGameTiles()
@@ -70,9 +73,9 @@ namespace checkers.ViewModels
             GameTiles = tempGameTiles;
         }
         
-        private void UpdateCurrentPlayer()
+        private void UpdateGameStatus()
         {
-            CurrentPlayer = _currentGame.GetCurrentPlayer();
+            CurrentGameStatus = _currentGame.GetGameStatus();
         }
         
         private void UpdateMove(Coordinate moveTo)
@@ -84,7 +87,7 @@ namespace checkers.ViewModels
                     var movePiece = _currentGame.Board.GetPiece(_currentMove.From);
                     _currentMove = _currentGame.ApplyMove(movePiece!, moveTo);
                     UpdatePieces();
-                    UpdateCurrentPlayer();
+                    UpdateGameStatus();
                 }
                 else
                 {
@@ -120,18 +123,19 @@ namespace checkers.ViewModels
         
         public ReactiveCommand<Coordinate, Unit> SelectSquareCommand { get; }
 
-        void SelectSquare(Coordinate coordinate)
+        private void SelectSquare(Coordinate coordinate)
         {
-            UpdateMove(coordinate);
+            if(_currentGameStatus == GameStatus.DarkPlayerTurn || _currentGameStatus == GameStatus.LightPlayerTurn) 
+                UpdateMove(coordinate);
         }
         
         public MainWindowViewModel()
         {
             _currentGame = new Game();
             _currentMove = null;
-            _currentPlayer = _currentGame.GetCurrentPlayer();
             _gameTiles = new ObservableCollection<ObservableCollection<Tile>>();
             _piecesTypes = new ObservableCollection<ObservableCollection<Piece?>>();
+            _currentGameStatus = _currentGame.GetGameStatus();
             UpdatePieces();
             UpdateGameTiles();
             SelectSquareCommand = ReactiveCommand.Create<Coordinate>(SelectSquare);

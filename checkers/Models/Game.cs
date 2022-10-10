@@ -11,7 +11,8 @@ public class Game
     private Player _currentPlayer;
     private List<Move> _currentPossibleMoves;
     private bool _isTakingNow;
-    
+    private GameStatus _gameStatus;
+
     public Game()
     {
         Board = new Board();
@@ -20,13 +21,31 @@ public class Game
         _currentPlayer = _playerLight;
         _currentPossibleMoves = _playerLight.GetAllPossibleMoves(Board);
         _isTakingNow = false;
+        _gameStatus = GameStatus.LightPlayerTurn;
+    }
+    
+    
+    public GameStatus GetGameStatus()
+    {
+        return _gameStatus;
     }
 
     private void ReversePlayer()
     {
         _isTakingNow = false;
         _currentPlayer = _currentPlayer == _playerLight ? _playerDark : _playerLight;
+        _gameStatus = _currentPlayer.IsLightPlayer() ? GameStatus.LightPlayerTurn : GameStatus.DarkPlayerTurn;
         _currentPossibleMoves = _currentPlayer.GetAllPossibleMoves(Board);
+        if(_currentPossibleMoves.Count != 0)
+            return;
+        if(_currentPlayer.GetAllPieces(Board).Count == 0)
+        {
+            _gameStatus = _gameStatus == GameStatus.DarkPlayerTurn ? GameStatus.LightWon : GameStatus.DarkWon;
+        }
+        else
+        {
+            _gameStatus = GameStatus.Draw;
+        }
     }
     
     public bool IsPossibleMove(Move? move)

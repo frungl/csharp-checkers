@@ -67,8 +67,8 @@ namespace checkers.Views
             var bindingText = new Binding 
             { 
                 Source = (MainWindowViewModel)DataContext, 
-                Path = "CurrentPlayer",
-                Converter = new ConverterPlayerToText()
+                Path = "CurrentGameStatus",
+                Converter = new ConverterGameStatusToText()
             };
 
             textBlock.Bind(TextBlock.TextProperty, bindingText);
