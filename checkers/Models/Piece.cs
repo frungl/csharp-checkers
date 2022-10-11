@@ -17,7 +17,7 @@ public class Piece
     
     public Coordinate GetCoords() => new (_x, _y);
     
-    public void UpdateQueenStatus()
+    private void UpdateQueenStatus()
     {
         if ((_isLight && _x == Board.BoardSize - 1) || (!_isLight && _x == 0))
         {
