@@ -64,14 +64,14 @@ public class Board
     {
         var finalPatter = boardPattern ?? new []
         {
-            ".w.w.w.w",
-            "w.w.w.w.",
-            ".w.w.w.w",
-            "........",
-            "........",
+            ".b.b.b.b",
             "b.b.b.b.",
             ".b.b.b.b",
-            "b.b.b.b."
+            "........",
+            "........",
+            "w.w.w.w.",
+            ".w.w.w.w",
+            "w.w.w.w."
         };
         if(finalPatter.Length != BoardSize)
             throw new ArgumentException($"Pattern must be {BoardSize}x{BoardSize}");

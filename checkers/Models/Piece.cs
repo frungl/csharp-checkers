@@ -38,7 +38,7 @@ public class Piece
         var jumpSize = _isQueen ? 7 : 2;
         var mustJump = false;
         var directions = new List<int> { -1, 1 };
-        var possibleDir = _isLight ? 1 : -1;
+        var possibleDir = _isLight ? -1 : 1;
         foreach (var dirX in directions)
         {
             foreach (var dirY in directions)
