@@ -13,9 +13,9 @@ public class Game
     private bool _isTakingNow;
     private GameStatus _gameStatus;
 
-    public Game()
+    public Game(string[]? boardPattern)
     {
-        Board = new Board(null);
+        Board = new Board(boardPattern);
         _playerLight = new Player(true);
         _playerDark = new Player(false);
         _currentPlayer = _playerLight;

@@ -60,9 +60,9 @@ public class Board
         }
     }
 
-    public Board(string[]? pattern)
+    public Board(string[]? boardPattern)
     {
-        var finalPatter = pattern ?? new []
+        var finalPatter = boardPattern ?? new []
         {
             ".w.w.w.w",
             "w.w.w.w.",
