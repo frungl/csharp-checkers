@@ -119,15 +119,7 @@ public class PieceTests
             }, false)
         };
         var moves = pieces.Select(piece => piece.GetMoves(board)).ToList();
-        for (var i = 0; i < moves.Count; i++)
-        {
-            Assert.Multiple(() =>
-            {
-                Assert.That(moves[i].From, Is.EqualTo(expectedMove[i].From));
-                Assert.That(moves[i].To, Is.EquivalentTo(expectedMove[i].To));
-                Assert.That(moves[i].IsTaking, Is.EqualTo(expectedMove[i].IsTaking));
-            });
-        }
+        Assert.That(moves, Is.EquivalentTo(expectedMove).Using(Move.FromToIsTakingComparer));
     }
 
     [Test]
@@ -164,14 +156,6 @@ public class PieceTests
             }, false),
         };
         var moves = pieces.Select(piece => piece.GetMoves(board)).ToList();
-        for (var i = 0; i < moves.Count; i++)
-        {
-            Assert.Multiple(() =>
-            {
-                Assert.That(moves[i].From, Is.EqualTo(expectedMove[i].From));
-                Assert.That(moves[i].To, Is.EquivalentTo(expectedMove[i].To));
-                Assert.That(moves[i].IsTaking, Is.EqualTo(expectedMove[i].IsTaking));
-            });
-        }
+        Assert.That(moves, Is.EquivalentTo(expectedMove).Using(Move.FromToIsTakingComparer));
     }
 }
