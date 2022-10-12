@@ -15,7 +15,7 @@ public class Game
 
     public Game()
     {
-        Board = new Board();
+        Board = new Board(null);
         _playerLight = new Player(true);
         _playerDark = new Player(false);
         _currentPlayer = _playerLight;
@@ -79,6 +79,4 @@ public class Game
 
         return null;
     }
-    
-    public Player GetCurrentPlayer() => _currentPlayer;
 }

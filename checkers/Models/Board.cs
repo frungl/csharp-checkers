@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace checkers.Models;
 
@@ -37,26 +39,45 @@ public class Board
         _boardArray[to.X, to.Y] = piece;
     }
 
-    private void InitBoard()
+    private void InitBoard(IReadOnlyList<string> pattern)
     {
         for (var i = 0; i < BoardSize; i++)
         {
             for (var j = 0; j < BoardSize; j++)
             {
-                if ((i + j) % 2 == 1)
-                    continue;
-                _boardArray[i, j] = i switch
+                _boardArray[i,j] = pattern[i][j] switch
                 {
-                    < 3 => new Piece(new Coordinate(i, j), true),
-                    >= BoardSize - 3 => new Piece(new Coordinate(i, j), false),
-                    _ => null
+                    'w' or 'W' => new Piece(new Coordinate(i, j), true),
+                    'b' or 'B' => new Piece(new Coordinate(i, j), false),
+                    '.' => null,
+                    _ => throw new ArgumentException("The pattern contains an invalid character.")
                 };
+                if(pattern[i][j] == 'W' || pattern[i][j] == 'B')
+                {
+                    _boardArray[i, j]!.SetQueen();
+                }
             }
         }
     }
 
-    public Board()
+    public Board(string[]? pattern)
     {
-        InitBoard();
+        var finalPatter = pattern ?? new []
+        {
+            ".w.w.w.w",
+            "w.w.w.w.",
+            ".w.w.w.w",
+            "........",
+            "........",
+            "b.b.b.b.",
+            ".b.b.b.b",
+            "b.b.b.b."
+        };
+        if(finalPatter.Length != BoardSize)
+            throw new ArgumentException($"Pattern must be {BoardSize}x{BoardSize}");
+        if(finalPatter.Any(x => x.Length != BoardSize))
+            throw new ArgumentException($"Pattern must be {BoardSize}x{BoardSize}");
+        
+        InitBoard(finalPatter);
     }
 }
