@@ -32,7 +32,7 @@ public class Board
             }
         }
 
-        piece.MoveTo(to.X, to.Y);
+        piece.MoveTo(to);
         _boardArray[fromX, fromY] = null;
         _boardArray[to.X, to.Y] = piece;
     }
@@ -47,8 +47,8 @@ public class Board
                     continue;
                 _boardArray[i, j] = i switch
                 {
-                    < 3 => new Piece(i, j, true),
-                    >= BoardSize - 3 => new Piece(i, j, false),
+                    < 3 => new Piece(new Coordinate(i, j), true),
+                    >= BoardSize - 3 => new Piece(new Coordinate(i, j), false),
                     _ => null
                 };
             }
