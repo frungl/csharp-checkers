@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace checkers.Models;
 
@@ -95,4 +96,23 @@ public class Piece
     }
     
     public Piece(Coordinate coordinate, bool isLight) => (_coordinate, _isLight, _isQueen) = (coordinate, isLight, false);
+
+    private sealed class CoordinateIsLightIsQueenEqualityComparer : IEqualityComparer<Piece>
+    {
+        public bool Equals(Piece? x, Piece? y)
+        {
+            if (ReferenceEquals(x, y)) return true;
+            if (ReferenceEquals(x, null)) return false;
+            if (ReferenceEquals(y, null)) return false;
+            if (x.GetType() != y.GetType()) return false;
+            return x._coordinate.Equals(y._coordinate) && x._isLight == y._isLight && x._isQueen == y._isQueen;
+        }
+
+        public int GetHashCode(Piece obj)
+        {
+            return HashCode.Combine(obj._coordinate, obj._isLight, obj._isQueen);
+        }
+    }
+
+    public static IEqualityComparer<Piece> CoordinateIsLightIsQueenComparer { get; } = new CoordinateIsLightIsQueenEqualityComparer();
 }
