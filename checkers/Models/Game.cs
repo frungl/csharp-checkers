@@ -13,12 +13,12 @@ public class Game
     private bool _isTakingNow;
     private GameStatus _gameStatus;
 
-    public Game(string[]? boardPattern)
+    public Game(string[]? boardPattern, bool isLightFirst)
     {
         Board = new Board(boardPattern);
         _playerLight = new Player(true);
         _playerDark = new Player(false);
-        _currentPlayer = _playerLight;
+        _currentPlayer = isLightFirst ? _playerLight : _playerDark;
         _currentPossibleMoves = _playerLight.GetAllPossibleMoves(Board);
         _isTakingNow = false;
         _gameStatus = GameStatus.LightPlayerTurn;
