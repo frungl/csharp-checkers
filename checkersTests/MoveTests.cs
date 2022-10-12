@@ -46,7 +46,7 @@ public class MoveTests {
             Assert.That(move.IsPossible(new Coordinate(2, 5)), Is.False);
             Assert.That(move.IsPossible(new Coordinate(3, 3)), Is.True);
             Assert.That(move.IsPossible(new Coordinate(7, 4)), Is.False);
-            Assert.That(move.IsPossible(new Coordinate(4, 7)), Is.False);
+            Assert.That(move.IsPossible(new Coordinate(4, 7)), Is.True);
             Assert.That(move.IsPossible(new Coordinate(1, -1)), Is.True);
         });
     }
