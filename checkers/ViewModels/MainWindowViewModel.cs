@@ -131,7 +131,7 @@ namespace checkers.ViewModels
         
         public MainWindowViewModel()
         {
-            _currentGame = new Game(null);
+            _currentGame = new Game(null, true);
             _currentMove = null;
             _gameTiles = new ObservableCollection<ObservableCollection<Tile>>();
             _piecesTypes = new ObservableCollection<ObservableCollection<Piece?>>();

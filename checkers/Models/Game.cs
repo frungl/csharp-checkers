@@ -19,9 +19,9 @@ public class Game
         _playerLight = new Player(true);
         _playerDark = new Player(false);
         _currentPlayer = isLightFirst ? _playerLight : _playerDark;
-        _currentPossibleMoves = _playerLight.GetAllPossibleMoves(Board);
+        _currentPossibleMoves = _currentPlayer.GetAllPossibleMoves(Board);
         _isTakingNow = false;
-        _gameStatus = GameStatus.LightPlayerTurn;
+        _gameStatus = isLightFirst ? GameStatus.LightPlayerTurn : GameStatus.DarkPlayerTurn;
     }
     
     
