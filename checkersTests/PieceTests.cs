@@ -50,15 +50,15 @@ public class PieceTests
     [Test]
     public void UpdateQueenStatusTest()
     {
-        var piece = new Piece(new Coordinate(6, 4), true);
+        var piece = new Piece(new Coordinate(1, 4), true);
         Assert.That(piece.IsQueen(), Is.False);
-        piece.MoveTo(new Coordinate(7, 3));
+        piece.MoveTo(new Coordinate(0, 3));
         Assert.That(piece.IsQueen(), Is.True);
         
-        var piece2 = new Piece(new Coordinate(5, 0), false);
+        var piece2 = new Piece(new Coordinate(2, 0), false);
         piece2.SetQueen();
         Assert.That(piece2.IsQueen(), Is.True);
-        piece2.MoveTo(new Coordinate(0, 5));
+        piece2.MoveTo(new Coordinate(7, 5));
         Assert.That(piece2.IsQueen(), Is.True);
     }
 
@@ -69,57 +69,57 @@ public class PieceTests
         {
             "...w....",
             "........",
-            ".......b",
-            "..b.b...",
+            "........",
             "...b.w..",
+            "..b.b...",
+            ".......b",
             "........",
-            "........",
-            "...w...."
+            "...w....",
         };
         var board = new Board(pattern);
         var pieces = new List<Piece>
         {
-            new (new Coordinate(0, 3), true),
-            new (new Coordinate(2, 7), false),
-            new (new Coordinate(3, 2), false),
-            new (new Coordinate(3, 4), false),
-            new (new Coordinate(4, 3), false),
-            new (new Coordinate(4, 5), true),
-            new (new Coordinate(7, 3), true)
+            new (new Coordinate(7, 3), true),
+            new (new Coordinate(5, 7), false),
+            new (new Coordinate(4, 2), false),
+            new (new Coordinate(4, 4), false),
+            new (new Coordinate(3, 3), false),
+            new (new Coordinate(3, 5), true),
+            new (new Coordinate(0, 3), true)
         };
-        var expectedMove = new List<Move>()
+        var expectedMoves = new List<Move>()
         {
-            new (new Coordinate(0, 3), new HashSet<Coordinate>
+            new (new Coordinate(7, 3), new HashSet<Coordinate>
             {
-                new (1, 2), new (1, 4)
+                new (6, 2), new (6, 4)
             }, false),
-            new (new Coordinate(2, 7), new HashSet<Coordinate>
+            new (new Coordinate(5, 7), new HashSet<Coordinate>
             {
-                new (1, 6)
+                new (6, 6)
             }, false),
-            new (new Coordinate(3, 2), new HashSet<Coordinate>
+            new (new Coordinate(4, 2), new HashSet<Coordinate>
             {
-                new (2, 1), new (2, 3)
+                new (5, 1), new (5, 3)
             }, false),
-            new (new Coordinate(3, 4), new HashSet<Coordinate>
+            new (new Coordinate(4, 4), new HashSet<Coordinate>
             {
-                new (5, 6)
+                new (2, 6)
             }, true),
-            new (new Coordinate(4, 3), new HashSet<Coordinate>
+            new (new Coordinate(3, 3), new HashSet<Coordinate>
             {
                 
             }, false),
-            new (new Coordinate(4, 5), new HashSet<Coordinate>
+            new (new Coordinate(3, 5), new HashSet<Coordinate>
             {
-                new (2, 3)
+                new (5, 3)
             }, true),
-            new (new Coordinate(7, 3), new HashSet<Coordinate>
+            new (new Coordinate(0, 3), new HashSet<Coordinate>
             {
                 
             }, false)
         };
         var moves = pieces.Select(piece => piece.GetMoves(board)).ToList();
-        Assert.That(moves, Is.EquivalentTo(expectedMove).Using(Move.FromToIsTakingComparer));
+        Assert.That(moves, Is.EquivalentTo(expectedMoves).Using(Move.FromToIsTakingComparer));
     }
 
     [Test]
@@ -144,7 +144,7 @@ public class PieceTests
         };
         pieces.ForEach(piece => piece.SetQueen());
         
-        var expectedMove = new List<Move>()
+        var expectedMoves = new List<Move>()
         {
             new (new Coordinate(1, 4), new HashSet<Coordinate>
             {
@@ -156,6 +156,6 @@ public class PieceTests
             }, false),
         };
         var moves = pieces.Select(piece => piece.GetMoves(board)).ToList();
-        Assert.That(moves, Is.EquivalentTo(expectedMove).Using(Move.FromToIsTakingComparer));
+        Assert.That(moves, Is.EquivalentTo(expectedMoves).Using(Move.FromToIsTakingComparer));
     }
 }

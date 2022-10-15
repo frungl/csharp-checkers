@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using checkers.Models;
+﻿using checkers.Models;
 namespace checkersTests;
 
 public class PlayerTests
@@ -80,8 +79,8 @@ public class PlayerTests
         });
         Assert.Multiple(() =>
         {
-            Assert.That(lightPieces, Is.EquivalentTo(expectedLightPieces).Using(Piece.CoordinateIsLightIsQueenComparer));
-            Assert.That(darkPieces, Is.EquivalentTo(expectedDarkPieces).Using(Piece.CoordinateIsLightIsQueenComparer));
+            Assert.That(lightPieces, Is.EqualTo(expectedLightPieces).Using(Piece.CoordinateIsLightIsQueenComparer));
+            Assert.That(darkPieces, Is.EqualTo(expectedDarkPieces).Using(Piece.CoordinateIsLightIsQueenComparer));
         });
     }
 
@@ -90,14 +89,14 @@ public class PlayerTests
     {
         var pattern = new[]
         {
-            "...W....",
-            "...B..b.", 
-            ".w......",
+            "....b...",
+            "..W.....",
             "........",
             "......w.",
             "........",
-            "..W.....",
-            "....b..."
+            ".w......",
+            "...B..b.",
+            "...W....",
         };
         var board = new Board(pattern);
         var playerLight = new Player(true);
@@ -105,28 +104,28 @@ public class PlayerTests
         
         var expectedLightMoves = new List<Move>
         {
-            new (new Coordinate(0, 3), new HashSet<Coordinate>
+            new (new Coordinate(7, 3), new HashSet<Coordinate>
             {
-                new (1, 2), new (1, 4), new (2, 5), new (3, 6), new (4, 7)
+                new (6, 2), new (6, 4), new (5, 5), new (4, 6), new (3, 7)
             }, false),
-            new (new Coordinate(2, 1), new HashSet<Coordinate>
+            new (new Coordinate(5, 1), new HashSet<Coordinate>
             {
-                new (3, 0), new (3, 2)
+                new (4, 0), new (4, 2)
             }, false),
-            new (new Coordinate(4, 6), new HashSet<Coordinate>
+            new (new Coordinate(3, 6), new HashSet<Coordinate>
             {
-                new (5, 5), new (5, 7)
+                new (2, 5), new (2, 7)
             }, false),
-            new (new Coordinate(6, 2), new HashSet<Coordinate>
+            new (new Coordinate(1, 2), new HashSet<Coordinate>
             {
-                new (7, 1), new (7, 3), new (5, 1), new (4, 0), new (5, 3), new (4, 4), new (3, 5), new (2, 6), new (1, 7)
+                new (0, 1), new (0, 3), new (2, 1), new (3, 0), new (2, 3), new (3, 4), new (4, 5), new (5, 6), new (6, 7)
             }, false)
         };
         var expectedDarkMoves = new List<Move>
         {
-            new (new Coordinate(1, 3), new HashSet<Coordinate>
+            new (new Coordinate(6, 3), new HashSet<Coordinate>
             {
-                new (5, 7)
+                new (2, 7)
             }, true),
         };
         
