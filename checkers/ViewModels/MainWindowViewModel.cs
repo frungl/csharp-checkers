@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Reactive;
-using Avalonia;
-using Avalonia.Controls;
 using checkers.Models;
 using ReactiveUI;
 
@@ -12,25 +9,25 @@ namespace checkers.ViewModels
     {
         private readonly Game _currentGame;
         private Move? _currentMove;
-        
+
         private ObservableCollection<ObservableCollection<Tile>> _gameTiles;
-        
+
         public ObservableCollection<ObservableCollection<Tile>> GameTiles
         {
             get => _gameTiles;
             set => this.RaiseAndSetIfChanged(ref _gameTiles, value);
         }
-        
+
         private ObservableCollection<ObservableCollection<Piece?>> _piecesTypes;
-        
+
         public ObservableCollection<ObservableCollection<Piece?>> PiecesTypes
         {
             get => _piecesTypes;
             set => this.RaiseAndSetIfChanged(ref _piecesTypes, value);
         }
-        
+
         private GameStatus _currentGameStatus;
-        
+
         public GameStatus CurrentGameStatus
         {
             get => _currentGameStatus;
@@ -48,6 +45,7 @@ namespace checkers.ViewModels
                     tempPiecesTypes[i].Add(_currentGame.Board.GetPiece(new Coordinate(i, j)));
                 }
             }
+
             PiecesTypes = tempPiecesTypes;
         }
 
@@ -62,6 +60,7 @@ namespace checkers.ViewModels
                     tempGameTiles[i].Add(Board.IsLightField(new Coordinate(i, j)) ? Tile.Light : Tile.Dark);
                 }
             }
+
             if (_currentMove != null)
             {
                 tempGameTiles[_currentMove.From.X][_currentMove.From.Y] = Tile.Selected;
@@ -70,67 +69,68 @@ namespace checkers.ViewModels
                     tempGameTiles[x][y] = Tile.Highlighted;
                 }
             }
+
             GameTiles = tempGameTiles;
         }
-        
+
         private void UpdateGameStatus()
         {
             CurrentGameStatus = _currentGame.GetGameStatus();
         }
-        
+
         private void UpdateMove(Coordinate moveTo)
         {
-            if(_currentMove != null)
+            if (_currentMove != null && _currentMove.IsPossible(moveTo))
             {
-                if (_currentMove.IsPossible(moveTo))
-                {
-                    var movePiece = _currentGame.Board.GetPiece(_currentMove.From);
-                    _currentMove = _currentGame.ApplyMove(movePiece!, moveTo);
-                    UpdatePieces();
-                    UpdateGameStatus();
-                }
-                else
-                {
-                    if (_currentMove.From == moveTo)
-                    {
-                        if(_currentGame.IsPossibleMove(null)) 
-                            _currentMove = null;
-                    }
-                    else
-                    {
-                        var piece = _currentGame.Board.GetPiece(moveTo);
-                        Move? tempMove = null;
-                        if (piece != null)
-                            tempMove = piece.GetMoves(_currentGame.Board);
-                        if (_currentGame.IsPossibleMove(tempMove))
-                            _currentMove = tempMove;
-                    }
-                }
+                var movePiece = _currentGame.Board.GetPiece(_currentMove.From);
+                _currentMove = _currentGame.ApplyMove(movePiece!, moveTo);
+                UpdatePieces();
+                UpdateGameStatus();
             }
             else
             {
-                var piece = _currentGame.Board.GetPiece(moveTo);
-                Move? tempMove = null;
-                if (piece != null)
-                    tempMove = piece.GetMoves(_currentGame.Board);
-                if (_currentGame.IsPossibleMove(tempMove))
+                if (_currentMove != null && _currentMove.From == moveTo)
                 {
-                    _currentMove = tempMove;
+                    if (_currentGame.IsPossibleMove(null))
+                        _currentMove = null;
+                }
+                else
+                {
+                    var piece = _currentGame.Board.GetPiece(moveTo);
+                    Move? tempMove = null;
+                    if (piece != null)
+                        tempMove = piece.GetMoves(_currentGame.Board);
+                    if (_currentGame.IsPossibleMove(tempMove))
+                        _currentMove = tempMove;
                 }
             }
+
             UpdateGameTiles();
         }
-        
+
         public ReactiveCommand<Coordinate, Unit> SelectSquareCommand { get; }
 
         private void SelectSquare(Coordinate coordinate)
         {
-            if(_currentGameStatus == GameStatus.DarkPlayerTurn || _currentGameStatus == GameStatus.LightPlayerTurn) 
+            if (_currentGameStatus is GameStatus.DarkPlayerTurn or GameStatus.LightPlayerTurn)
                 UpdateMove(coordinate);
         }
-        
+
         public MainWindowViewModel()
         {
+            /*
+            var myGamePattern = new[]
+            {
+                ".b.b.b.b",
+                "b.b.b.b.",
+                ".b.b.b.b",
+                "........",
+                "........",
+                "w.w.w.w.",
+                ".w.w.w.w",
+                "w.w.w.w."
+            };
+            */
             _currentGame = new Game(null, true);
             _currentMove = null;
             _gameTiles = new ObservableCollection<ObservableCollection<Tile>>();
