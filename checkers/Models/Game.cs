@@ -23,8 +23,8 @@ public class Game
         _isTakingNow = false;
         _gameStatus = isLightFirst ? GameStatus.LightPlayerTurn : GameStatus.DarkPlayerTurn;
     }
-    
-    
+
+
     public GameStatus GetGameStatus()
     {
         return _gameStatus;
@@ -36,9 +36,9 @@ public class Game
         _currentPlayer = _currentPlayer == _playerLight ? _playerDark : _playerLight;
         _gameStatus = _currentPlayer.IsLightPlayer() ? GameStatus.LightPlayerTurn : GameStatus.DarkPlayerTurn;
         _currentPossibleMoves = _currentPlayer.GetAllPossibleMoves(Board);
-        if(_currentPossibleMoves.Count != 0)
+        if (_currentPossibleMoves.Count != 0)
             return;
-        if(_currentPlayer.GetAllPieces(Board).Count == 0)
+        if (_currentPlayer.GetAllPieces(Board).Count == 0)
         {
             _gameStatus = _gameStatus == GameStatus.DarkPlayerTurn ? GameStatus.LightWon : GameStatus.DarkWon;
         }
@@ -47,14 +47,15 @@ public class Game
             _gameStatus = GameStatus.Draw;
         }
     }
-    
+
     public bool IsPossibleMove(Move? move)
     {
         if (move == null)
             return !_isTakingNow;
-        return _currentPossibleMoves.Any(e => e.From == move.From && e.To.SetEquals(move.To) && e.IsTaking == move.IsTaking);
+        return _currentPossibleMoves.Any(e =>
+            e.From == move.From && e.To.SetEquals(move.To) && e.IsTaking == move.IsTaking);
     }
-    
+
     public Move? ApplyMove(Piece piece, Coordinate to)
     {
         var (fromX, fromY) = piece.GetCoords();
@@ -63,16 +64,17 @@ public class Game
         if (move == null)
             return null;
         Board.ApplyMove(piece, to, move.IsTaking);
-        if(move.IsTaking)
+        if (move.IsTaking)
         {
-            _currentPossibleMoves = new List<Move>{ Board.GetPiece(to)!.GetMoves(Board) };
+            _currentPossibleMoves = new List<Move> { Board.GetPiece(to)!.GetMoves(Board) };
             if (_currentPossibleMoves.First().IsTaking)
             {
                 _isTakingNow = true;
                 return _currentPossibleMoves.First();
             }
         }
-        if(!move.IsTaking || !_currentPossibleMoves.Any(t => t.IsTaking))
+
+        if (!move.IsTaking || !_currentPossibleMoves.Any(t => t.IsTaking))
         {
             ReversePlayer();
         }

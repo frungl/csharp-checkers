@@ -9,6 +9,7 @@ public record Move(Coordinate From, HashSet<Coordinate> To, bool IsTaking)
     {
         To.Add(to);
     }
+
     public bool IsPossible(Coordinate c)
     {
         return To.Contains(c);

@@ -1,4 +1,5 @@
 using checkers.Models;
+
 namespace checkersTests;
 
 public class GameTests
@@ -29,12 +30,12 @@ public class GameTests
             Assert.That(gameLight.IsPossibleMove(pieceLightCheck2.GetMoves(gameLight.Board)), Is.True);
             Assert.That(gameLight.IsPossibleMove(pieceLightCheck3.GetMoves(gameLight.Board)), Is.True);
         });
-        
+
         var pieceDarkCheck1 = new Piece(new Coordinate(1, 6), false);
         var pieceDarkCheck2 = new Piece(new Coordinate(3, 5), false);
         var pieceDarkCheck3 = new Piece(new Coordinate(6, 2), false, true);
         var pieceDarkCheck4 = new Piece(new Coordinate(6, 4), false, true);
-        
+
         Assert.Multiple(() =>
         {
             Assert.That(gameDark.IsPossibleMove(pieceDarkCheck1.GetMoves(gameDark.Board)), Is.False);
@@ -61,7 +62,7 @@ public class GameTests
         var game = new Game(pattern, true);
         var piece = new Piece(new Coordinate(5, 3), true);
         game.ApplyMove(piece, new Coordinate(7, 1));
-        
+
         var pieceCheck1 = new Piece(new Coordinate(0, 2), true, true);
         var pieceCheck2 = new Piece(new Coordinate(3, 4), true, true);
         var pieceCheck3 = new Piece(new Coordinate(7, 1), true, true);

@@ -9,7 +9,7 @@ public class ConverterGameStatusToText : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if(value is GameStatus gameStatus)
+        if (value is GameStatus gameStatus)
         {
             return gameStatus switch
             {
@@ -21,6 +21,7 @@ public class ConverterGameStatusToText : IValueConverter
                 _ => ""
             };
         }
+
         return "";
     }
 

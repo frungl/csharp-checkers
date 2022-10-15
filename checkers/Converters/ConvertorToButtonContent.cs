@@ -17,7 +17,8 @@ public class ConverterToButtonContent : IValueConverter
         if (value is not Piece piece)
             return "";
         var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-        var uri = new Uri($"avares://checkers/Assets/{(piece.IsLight() ? "Light" : "Dark")}{(piece.IsQueen() ? "Queen" : "")}.png");
+        var uri = new Uri(
+            $"avares://checkers/Assets/{(piece.IsLight() ? "Light" : "Dark")}{(piece.IsQueen() ? "Queen" : "")}.png");
         return new Image
         {
             Source = new Bitmap(assets!.Open(uri)),

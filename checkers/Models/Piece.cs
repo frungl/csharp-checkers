@@ -97,7 +97,7 @@ public class Piece
 
         return mustJump ? movesJumps : moves;
     }
-    
+
     public Piece(Coordinate coordinate, bool isLight, bool isQueen = false) =>
         (_coordinate, _isLight, _isQueen) = (coordinate, isLight, isQueen);
 
