@@ -13,11 +13,11 @@ public class PieceTests
             Assert.That(pieceLight.IsQueen(), Is.False);
         });
         
-        var pieceBlack = new Piece(new Coordinate(3, 5), false);
+        var pieceBlack = new Piece(new Coordinate(3, 5), false, true);
         Assert.Multiple(() => {
             Assert.That(pieceBlack.GetCoords(), Is.EqualTo(new Coordinate(3, 5)));
             Assert.That(pieceBlack.IsLight(), Is.False);
-            Assert.That(pieceBlack.IsQueen(), Is.False);
+            Assert.That(pieceBlack.IsQueen(), Is.True);
         });
     }
 
@@ -54,9 +54,8 @@ public class PieceTests
         Assert.That(piece.IsQueen(), Is.False);
         piece.MoveTo(new Coordinate(0, 3));
         Assert.That(piece.IsQueen(), Is.True);
-        
-        var piece2 = new Piece(new Coordinate(2, 0), false);
-        piece2.SetQueen();
+
+        var piece2 = new Piece(new Coordinate(2, 0), false, true);
         Assert.That(piece2.IsQueen(), Is.True);
         piece2.MoveTo(new Coordinate(7, 5));
         Assert.That(piece2.IsQueen(), Is.True);
@@ -139,10 +138,9 @@ public class PieceTests
         var board = new Board(pattern);
         var pieces = new List<Piece>
         {
-            new (new Coordinate(1, 4), true),
-            new (new Coordinate(4, 5), false),
+            new (new Coordinate(1, 4), true, true),
+            new (new Coordinate(4, 5), false, true),
         };
-        pieces.ForEach(piece => piece.SetQueen());
         
         var expectedMoves = new List<Move>()
         {

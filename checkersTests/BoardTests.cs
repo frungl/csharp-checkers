@@ -12,15 +12,13 @@ public class BoardTests
                 var boardPiece = board.GetPiece(new Coordinate(i, j));
                 var expectedPiece = expectedPattern[i][j] switch
                 {
-                    'w' or 'W' => new Piece(new Coordinate(i, j), true),
-                    'b' or 'B' => new Piece(new Coordinate(i, j), false),
+                    'w' => new Piece(new Coordinate(i, j), true),
+                    'W' => new Piece(new Coordinate(i, j), true, true),
+                    'b' => new Piece(new Coordinate(i, j), false), 
+                    'B' => new Piece(new Coordinate(i, j), false, true),
                     '.' => null,
-                    _ => throw new ArgumentOutOfRangeException()
+                    _ => throw new ArgumentOutOfRangeException($"{expectedPattern[i][j]} is not a valid piece")
                 };
-                if (expectedPiece != null && (expectedPattern[i][j] == 'W' || expectedPattern[i][j] == 'B'))
-                {
-                    expectedPiece.SetQueen();
-                }
 
                 Assert.That(boardPiece, Is.EqualTo(expectedPiece).Using(Piece.CoordinateIsLightIsQueenComparer));
             }
@@ -134,12 +132,10 @@ public class BoardTests
         AssertAfterApplyMove(board, moveFrom1, startPiece1, moveTo1, endPiece1, null);
         
         var moveFrom2 = new Coordinate(4, 4);
-        var startPiece2 = new Piece(new Coordinate(4, 4), true);
-        startPiece2.SetQueen();
+        var startPiece2 = new Piece(new Coordinate(4, 4), true, true);
         var moveTo2 = new Coordinate(0, 0);
-        var endPiece2 = new Piece(new Coordinate(0, 0), true);
+        var endPiece2 = new Piece(new Coordinate(0, 0), true, true);
         var checkEmpty2 = new Coordinate(2, 2);
-        endPiece2.SetQueen();
         
         board.ApplyMove(startPiece2, moveTo2, true);
         AssertAfterApplyMove(board, moveFrom2, startPiece2, moveTo2, endPiece2, checkEmpty2);
@@ -147,9 +143,8 @@ public class BoardTests
         var moveFrom3 = new Coordinate(2, 5);
         var startPiece3 = new Piece(new Coordinate(2, 5), true);
         var moveTo3 = new Coordinate(0, 7);
-        var endPiece3 = new Piece(new Coordinate(0, 7), true);
+        var endPiece3 = new Piece(new Coordinate(0, 7), true, true);
         var checkEmpty3 = new Coordinate(1, 6);
-        endPiece3.SetQueen();
         
         board.ApplyMove(startPiece3, moveTo3, true);
         AssertAfterApplyMove(board, moveFrom3, startPiece3, moveTo3, endPiece3, checkEmpty3);
@@ -158,9 +153,8 @@ public class BoardTests
         var moveFrom4 = new Coordinate(4, 3);
         var startPiece4 = new Piece(new Coordinate(4, 3), true);
         var moveTo4 = new Coordinate(6, 5);
-        var endPiece4 = new Piece(new Coordinate(6, 5), true);
+        var endPiece4 = new Piece(new Coordinate(6, 5), true, true);
         var checkEmpty4 = new Coordinate(5, 4);
-        endPiece4.SetQueen();
         
         board.ApplyMove(startPiece4, moveTo4, true);
         AssertAfterApplyMove(board, moveFrom4, startPiece4, moveTo4, endPiece4, checkEmpty4);
@@ -192,12 +186,10 @@ public class BoardTests
         AssertAfterApplyMove(board, moveFrom1, startPiece1, moveTo1, endPiece1, null);
         
         var moveFrom2 = new Coordinate(3, 4);
-        var startPiece2 = new Piece(new Coordinate(3, 4), false);
-        startPiece2.SetQueen();
+        var startPiece2 = new Piece(new Coordinate(3, 4), false, true);
         var moveTo2 = new Coordinate(7, 0);
-        var endPiece2 = new Piece(new Coordinate(7, 0), false);
+        var endPiece2 = new Piece(new Coordinate(7, 0), false, true);
         var checkEmpty2 = new Coordinate(5, 2);
-        endPiece2.SetQueen();
         
         board.ApplyMove(startPiece2, moveTo2, true);
         AssertAfterApplyMove(board, moveFrom2, startPiece2, moveTo2, endPiece2, checkEmpty2);
@@ -205,9 +197,8 @@ public class BoardTests
         var moveFrom3 = new Coordinate(5, 5);
         var startPiece3 = new Piece(new Coordinate(5, 5), false);
         var moveTo3 = new Coordinate(7, 7);
-        var endPiece3 = new Piece(new Coordinate(7, 7), false);
+        var endPiece3 = new Piece(new Coordinate(7, 7), false, true);
         var checkEmpty3 = new Coordinate(6, 6);
-        endPiece3.SetQueen();
         
         board.ApplyMove(startPiece3, moveTo3, true);
         AssertAfterApplyMove(board, moveFrom3, startPiece3, moveTo3, endPiece3, checkEmpty3);
@@ -216,9 +207,8 @@ public class BoardTests
         var moveFrom4 = new Coordinate(3, 3);
         var startPiece4 = new Piece(new Coordinate(3, 3), false);
         var moveTo4 = new Coordinate(1, 5);
-        var endPiece4 = new Piece(new Coordinate(1, 5), false);
+        var endPiece4 = new Piece(new Coordinate(1, 5), false, true);
         var checkEmpty4 = new Coordinate(2, 4);
-        endPiece4.SetQueen();
         
         board.ApplyMove(startPiece4, moveTo4, true);
         AssertAfterApplyMove(board, moveFrom4, startPiece4, moveTo4, endPiece4, checkEmpty4);

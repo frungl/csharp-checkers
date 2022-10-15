@@ -45,24 +45,22 @@ public class Board
         {
             for (var j = 0; j < BoardSize; j++)
             {
-                _boardArray[i,j] = pattern[i][j] switch
+                _boardArray[i, j] = pattern[i][j] switch
                 {
-                    'w' or 'W' => new Piece(new Coordinate(i, j), true),
-                    'b' or 'B' => new Piece(new Coordinate(i, j), false),
+                    'w' => new Piece(new Coordinate(i, j), true),
+                    'W' => new Piece(new Coordinate(i, j), true, true),
+                    'b' => new Piece(new Coordinate(i, j), false),
+                    'B' => new Piece(new Coordinate(i, j), false, true),
                     '.' => null,
                     _ => throw new ArgumentException("The pattern contains an invalid character.")
                 };
-                if(pattern[i][j] == 'W' || pattern[i][j] == 'B')
-                {
-                    _boardArray[i, j]!.SetQueen();
-                }
             }
         }
     }
 
     public Board(string[]? boardPattern)
     {
-        var finalPatter = boardPattern ?? new []
+        var finalPatter = boardPattern ?? new[]
         {
             ".b.b.b.b",
             "b.b.b.b.",
@@ -73,11 +71,11 @@ public class Board
             ".w.w.w.w",
             "w.w.w.w."
         };
-        if(finalPatter.Length != BoardSize)
+        if (finalPatter.Length != BoardSize)
             throw new ArgumentException($"Pattern must be {BoardSize}x{BoardSize}");
-        if(finalPatter.Any(x => x.Length != BoardSize))
+        if (finalPatter.Any(x => x.Length != BoardSize))
             throw new ArgumentException($"Pattern must be {BoardSize}x{BoardSize}");
-        
+
         InitBoard(finalPatter);
     }
 }

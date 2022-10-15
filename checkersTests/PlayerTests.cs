@@ -42,13 +42,11 @@ public class PlayerTests
         expectedLightPieces.Add(temp);
         temp = new Piece(new Coordinate(3, 0), true);
         expectedLightPieces.Add(temp);
-        temp = new Piece(new Coordinate(3, 7), true);
-        temp.SetQueen();
+        temp = new Piece(new Coordinate(3, 7), true, true);
         expectedLightPieces.Add(temp);
         temp = new Piece(new Coordinate(5, 7), true);
         expectedLightPieces.Add(temp);
-        temp = new Piece(new Coordinate(6, 0), true);
-        temp.SetQueen();
+        temp = new Piece(new Coordinate(6, 0), true, true);
         expectedLightPieces.Add(temp);
 
         var expectedDarkPieces = new List<Piece>();
@@ -56,17 +54,13 @@ public class PlayerTests
         expectedDarkPieces.Add(temp);
         temp = new Piece(new Coordinate(3, 3), false);
         expectedDarkPieces.Add(temp);
-        temp = new Piece(new Coordinate(4, 3), false);
-        temp.SetQueen();
+        temp = new Piece(new Coordinate(4, 3), false, true);
         expectedDarkPieces.Add(temp);
-        temp = new Piece(new Coordinate(4, 5), false);
-        temp.SetQueen();
+        temp = new Piece(new Coordinate(4, 5), false, true);
         expectedDarkPieces.Add(temp);
-        temp = new Piece(new Coordinate(6, 4), false);
-        temp.SetQueen();
+        temp = new Piece(new Coordinate(6, 4), false, true);
         expectedDarkPieces.Add(temp);
-        temp = new Piece(new Coordinate(7, 7), false);
-        temp.SetQueen();
+        temp = new Piece(new Coordinate(7, 7), false, true);
         expectedDarkPieces.Add(temp);
         
         var lightPieces = playerLight.GetAllPieces(board);
