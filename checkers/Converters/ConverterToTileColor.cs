@@ -16,8 +16,8 @@ public class ConverterToTileColor : IValueConverter
         {
             Tile.Light => new SolidColorBrush(Color.Parse("#e3c16f")),
             Tile.Dark => new SolidColorBrush(Color.Parse("#b88b4a")),
-            Tile.Selected => new SolidColorBrush(Color.Parse("#ff2945")),
-            Tile.Highlighted => new SolidColorBrush(Color.Parse("#00ff1a")),
+            Tile.Selected => new SolidColorBrush(Color.Parse("#8f241d")),
+            Tile.Highlighted => new SolidColorBrush(Color.Parse("#41f067")),
             _ => ""
         };
     }

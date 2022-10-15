@@ -19,7 +19,7 @@ namespace checkers.Views
             MinHeight = 1024;
             CanResize = true;
             WindowState = WindowState.Maximized;
-            Background = Brushes.Aquamarine;
+            Background = new SolidColorBrush(Color.Parse("#7bb5b8"));
             
             grid.Width = 800;
             grid.Height = 800;
