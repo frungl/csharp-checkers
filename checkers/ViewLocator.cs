@@ -22,6 +22,7 @@ namespace checkers
             return new TextBlock { Text = "Not Found: " + name };
         }
 
+        /// <inheritdoc />
         public bool Match(object data)
         {
             return data is ViewModelBase;
