@@ -3,9 +3,16 @@ using System.Linq;
 
 namespace checkers.Models;
 
+/// <summary>
+/// Represents a game of checkers.
+/// </summary>
 public class Game
 {
+    /// <summary>
+    /// Board of the game.
+    /// </summary>
     public readonly Board Board;
+
     private readonly Player _playerLight;
     private readonly Player _playerDark;
     private Player _currentPlayer;
@@ -13,6 +20,11 @@ public class Game
     private bool _isTakingNow;
     private GameStatus _gameStatus;
 
+    /// <summary>
+    /// Creates a new game.
+    /// </summary>
+    /// <param name="boardPattern"> Pattern of the board. </param>
+    /// <param name="isLightFirst"> Is light player can move first. </param>
     public Game(string[]? boardPattern, bool isLightFirst)
     {
         Board = new Board(boardPattern);
@@ -24,7 +36,10 @@ public class Game
         _gameStatus = isLightFirst ? GameStatus.LightPlayerTurn : GameStatus.DarkPlayerTurn;
     }
 
-
+    /// <summary>
+    /// Gets the current game status.
+    /// </summary>
+    /// <returns> Current game status. </returns>
     public GameStatus GetGameStatus()
     {
         return _gameStatus;
@@ -48,6 +63,11 @@ public class Game
         }
     }
 
+    /// <summary>
+    /// Checks if the move is possible.
+    /// </summary>
+    /// <param name="move"> Move to check. </param>
+    /// <returns> True if the move is possible, false otherwise. </returns>
     public bool IsPossibleMove(Move? move)
     {
         if (move == null)
@@ -56,6 +76,12 @@ public class Game
             e.From == move.From && e.To.SetEquals(move.To) && e.IsTaking == move.IsTaking);
     }
 
+    /// <summary>
+    /// Applies the move to the board.
+    /// </summary>
+    /// <param name="piece"> Piece to move. </param>
+    /// <param name="to"> Coordinate to move to. </param>
+    /// <returns> Move that was applied. </returns>
     public Move? ApplyMove(Piece piece, Coordinate to)
     {
         var (fromX, fromY) = piece.GetCoords();

@@ -3,18 +3,36 @@ using checkers.Models.Comparators;
 
 namespace checkers.Models;
 
+/// <summary>
+/// A class that represent piece on the board.
+/// </summary>
 public class Piece
 {
     private Coordinate _coordinate;
     private readonly bool _isLight;
     private bool _isQueen;
 
+    /// <summary>
+    /// Make the piece a queen.
+    /// </summary>
     public void SetQueen() => _isQueen = true;
 
+    /// <summary>
+    /// Is the piece light.
+    /// </summary>
+    /// <returns> True if piece is light, false if piece is dark. </returns>
     public bool IsLight() => _isLight;
 
+    /// <summary>
+    /// Is the piece a queen.
+    /// </summary>
+    /// <returns> True if piece is a queen, false if piece is not a queen. </returns>
     public bool IsQueen() => _isQueen;
 
+    /// <summary>
+    /// Get the coordinate of the piece.
+    /// </summary>
+    /// <returns> Coordinate of the piece. </returns>
     public Coordinate GetCoords() => _coordinate;
 
     private void UpdateQueenStatus()
@@ -25,13 +43,21 @@ public class Piece
         }
     }
 
+    /// <summary>
+    /// Move the piece to a specific coordinate.
+    /// </summary>
+    /// <param name="moveCoordinate"> Coordinate to move to. </param>
     public void MoveTo(Coordinate moveCoordinate)
     {
         _coordinate = moveCoordinate;
         UpdateQueenStatus();
     }
 
-    // <summary> 
+    /// <summary>
+    /// Get the possible moves for the piece.
+    /// </summary>
+    /// <param name="board"> Board to get the moves from. </param>
+    /// <returns> Object of class <see cref="Move"/>. </returns>
     public Move GetMoves(Board board)
     {
         var moves = new Move(_coordinate, new HashSet<Coordinate>(), false);
@@ -98,9 +124,18 @@ public class Piece
         return mustJump ? movesJumps : moves;
     }
 
+    /// <summary>
+    /// Create a new piece.
+    /// </summary>
+    /// <param name="coordinate"> Coordinate of the piece. </param>
+    /// <param name="isLight"> Is the piece light. </param>
+    /// <param name="isQueen"> Is the piece a queen, default is false. </param>
     public Piece(Coordinate coordinate, bool isLight, bool isQueen = false) =>
         (_coordinate, _isLight, _isQueen) = (coordinate, isLight, isQueen);
 
+    /// <summary>
+    /// Equality comparer for the piece.
+    /// </summary>
     public static IEqualityComparer<Piece> CoordinateIsLightIsQueenComparer { get; } =
         new CoordinateIsLightIsQueenEqualityComparer();
 }

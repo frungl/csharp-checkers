@@ -5,6 +5,7 @@ using ReactiveUI;
 
 namespace checkers.ViewModels
 {
+    /// <inheritdoc />
     public class MainWindowViewModel : ViewModelBase
     {
         private readonly Game _currentGame;
@@ -12,6 +13,9 @@ namespace checkers.ViewModels
 
         private ObservableCollection<ObservableCollection<Tile>> _gameTiles;
 
+        /// <summary>
+        /// Observable collection of tiles that represent the game board
+        /// </summary>
         public ObservableCollection<ObservableCollection<Tile>> GameTiles
         {
             get => _gameTiles;
@@ -20,6 +24,9 @@ namespace checkers.ViewModels
 
         private ObservableCollection<ObservableCollection<Piece?>> _piecesTypes;
 
+        /// <summary>
+        /// Observable collection of pieces that represent the game board
+        /// </summary>
         public ObservableCollection<ObservableCollection<Piece?>> PiecesTypes
         {
             get => _piecesTypes;
@@ -28,6 +35,9 @@ namespace checkers.ViewModels
 
         private GameStatus _currentGameStatus;
 
+        /// <summary>
+        /// Current game status
+        /// </summary>
         public GameStatus CurrentGameStatus
         {
             get => _currentGameStatus;
@@ -108,6 +118,9 @@ namespace checkers.ViewModels
             UpdateGameTiles();
         }
 
+        /// <summary>
+        /// Selects a tile on the board
+        /// </summary>
         public ReactiveCommand<Coordinate, Unit> SelectSquareCommand { get; }
 
         private void SelectSquare(Coordinate coordinate)
@@ -116,6 +129,8 @@ namespace checkers.ViewModels
                 UpdateMove(coordinate);
         }
 
+
+        /// <inheritdoc />
         public MainWindowViewModel()
         {
             /*

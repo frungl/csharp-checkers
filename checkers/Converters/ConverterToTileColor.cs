@@ -6,8 +6,12 @@ using checkers.ViewModels;
 
 namespace checkers.Converters;
 
+/// <summary>
+/// Converts a <see cref="Tile"/> to a <see cref="SolidColorBrush"/> representing the tile's color.
+/// </summary>
 public class ConverterToTileColor : IValueConverter
 {
+    /// <inheritdoc cref="ConverterToTileColor"/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not Tile tileType)
@@ -22,6 +26,9 @@ public class ConverterToTileColor : IValueConverter
         };
     }
 
+    /// <summary>
+    /// not supported
+    /// </summary>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();

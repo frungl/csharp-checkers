@@ -5,8 +5,10 @@ using checkers.ViewModels;
 
 namespace checkers
 {
+    /// <inheritdoc />
     public class ViewLocator : IDataTemplate
     {
+        /// <inheritdoc />
         public IControl Build(object data)
         {
             var name = data.GetType().FullName!.Replace("ViewModel", "View");

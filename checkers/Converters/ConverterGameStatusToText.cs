@@ -5,8 +5,12 @@ using checkers.Models;
 
 namespace checkers.Converters;
 
+/// <summary>
+/// Converts a <see cref="GameStatus"/> to a <see cref="string"/> representing the game status.
+/// </summary>
 public class ConverterGameStatusToText : IValueConverter
 {
+    /// <inheritdoc cref="ConverterGameStatusToText"/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is GameStatus gameStatus)
@@ -25,6 +29,9 @@ public class ConverterGameStatusToText : IValueConverter
         return "";
     }
 
+    /// <summary>
+    /// not supported
+    /// </summary>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();

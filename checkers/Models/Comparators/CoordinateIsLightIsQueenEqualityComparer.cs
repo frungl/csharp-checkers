@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace checkers.Models.Comparators;
 
+/// <inheritdoc />
 public sealed class CoordinateIsLightIsQueenEqualityComparer : IEqualityComparer<Piece>
 {
+    /// <inheritdoc />
     public bool Equals(Piece? x, Piece? y)
     {
         if (ReferenceEquals(x, y)) return true;
@@ -14,6 +16,7 @@ public sealed class CoordinateIsLightIsQueenEqualityComparer : IEqualityComparer
         return x.GetCoords().Equals(y.GetCoords()) && x.IsLight() == y.IsLight() && x.IsQueen() == y.IsQueen();
     }
 
+    /// <inheritdoc />
     public int GetHashCode(Piece obj)
     {
         return HashCode.Combine(obj.GetCoords(), obj.IsLight(), obj.IsQueen());

@@ -8,8 +8,10 @@ using checkers.Models;
 using checkers.ViewModels;
 namespace checkers.Views
 {
+    /// <inheritdoc />
     public partial class MainWindow : Window
     {
+        /// <inheritdoc />
         public MainWindow()
         {
             InitializeComponent();

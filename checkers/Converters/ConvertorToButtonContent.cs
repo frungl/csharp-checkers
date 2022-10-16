@@ -10,8 +10,12 @@ using checkers.Models;
 
 namespace checkers.Converters;
 
+/// <summary>
+/// Converts a <see cref="Piece"/> to a <see cref="Bitmap"/> representing the piece image.
+/// </summary>
 public class ConverterToButtonContent : IValueConverter
 {
+    /// <inheritdoc cref="ConverterToButtonContent"/>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not Piece piece)
@@ -27,6 +31,9 @@ public class ConverterToButtonContent : IValueConverter
         };
     }
 
+    /// <summary>
+    /// not supported
+    /// </summary>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
