@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>checkers</name>
+    </assembly>
+    <members>
+        <member name="T:checkers.App">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.App.Initialize">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.App.OnFrameworkInitializationCompleted">
+            <inheritdoc />
+        </member>
+        <member name="T:checkers.Converters.ConverterGameStatusToText">
+            <summary>
+            Converts a <see cref="T:checkers.Models.GameStatus"/> to a <see cref="T:System.String"/> representing the game status.
+            </summary>
+        </member>
+        <member name="M:checkers.Converters.ConverterGameStatusToText.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc cref="T:checkers.Converters.ConverterGameStatusToText"/>
+        </member>
+        <member name="M:checkers.Converters.ConverterGameStatusToText.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            not supported
+            </summary>
+        </member>
+        <member name="T:checkers.Converters.ConverterToTileColor">
+            <summary>
+            Converts a <see cref="T:checkers.ViewModels.Tile"/> to a <see cref="T:Avalonia.Media.SolidColorBrush"/> representing the tile's color.
+            </summary>
+        </member>
+        <member name="M:checkers.Converters.ConverterToTileColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc cref="T:checkers.Converters.ConverterToTileColor"/>
+        </member>
+        <member name="M:checkers.Converters.ConverterToTileColor.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            not supported
+            </summary>
+        </member>
+        <member name="T:checkers.Converters.ConverterToButtonContent">
+            <summary>
+            Converts a <see cref="T:checkers.Models.Piece"/> to a <see cref="T:Avalonia.Media.Imaging.Bitmap"/> representing the piece image.
+            </summary>
+        </member>
+        <member name="M:checkers.Converters.ConverterToButtonContent.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc cref="T:checkers.Converters.ConverterToButtonContent"/>
+        </member>
+        <member name="M:checkers.Converters.ConverterToButtonContent.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            not supported
+            </summary>
+        </member>
+        <member name="T:checkers.Models.Board">
+            <summary>
+            Represents a board in the game of checkers.
+            </summary>
+        </member>
+        <member name="F:checkers.Models.Board.BoardSize">
+            <summary>
+            Size of the board.
+            </summary>
+        </member>
+        <member name="M:checkers.Models.Board.GetPiece(checkers.Models.Coordinate)">
+            <summary>
+            Gets the piece at the specified position.
+            </summary>
+            <param name="c"> Coordinate of the piece to get. </param>
+            <returns> The piece at the specified position. </returns>
+        </member>
+        <member name="M:checkers.Models.Board.IsOverBoard(checkers.Models.Coordinate)">
+            <summary>
+            Is the specified coordinate on the board?
+            </summary>
+            <param name="c"> Coordinate to check. </param>
+            <returns> True if the coordinate is on the board, false otherwise. </returns>
+        </member>
+        <member name="M:checkers.Models.Board.IsLightField(checkers.Models.Coordinate)">
+            <summary>
+            Is the tile at the specified coordinate light?
+            </summary>
+            <param name="c"> Coordinate to check. </param>
+            <returns> True if the tile is light, false otherwise. </returns>
+        </member>
+        <member name="M:checkers.Models.Board.ApplyMove(checkers.Models.Piece,checkers.Models.Coordinate,System.Boolean)">
+            <summary>
+            Applies the specified move to the board.
+            </summary>
+            <param name="piece"> Piece to move. </param>
+            <param name="to"> Coordinate to move to. </param>
+            <param name="isTaking"> Is the move a taking move? </param>
+        </member>
+        <member name="M:checkers.Models.Board.#ctor(System.String[])">
+            <summary>
+            Creates a new board.
+            </summary>
+            <param name="boardPattern"> Pattern of the board. Can be null to create a default board. </param>
+            <exception cref="T:System.ArgumentException"> The pattern contains an invalid character or is not 8x8. </exception>
+        </member>
+        <member name="T:checkers.Models.Comparators.CoordinateIsLightIsQueenEqualityComparer">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.Models.Comparators.CoordinateIsLightIsQueenEqualityComparer.Equals(checkers.Models.Piece,checkers.Models.Piece)">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.Models.Comparators.CoordinateIsLightIsQueenEqualityComparer.GetHashCode(checkers.Models.Piece)">
+            <inheritdoc />
+        </member>
+        <member name="T:checkers.Models.Comparators.FromToIsTakingEqualityComparer">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.Models.Comparators.FromToIsTakingEqualityComparer.Equals(checkers.Models.Move,checkers.Models.Move)">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.Models.Comparators.FromToIsTakingEqualityComparer.GetHashCode(checkers.Models.Move)">
+            <inheritdoc />
+        </member>
+        <member name="T:checkers.Models.Coordinate">
+            <summary>
+            Coordinates of a tile on the board.
+            </summary>
+            <param name="X"> X coordinate of the tile. </param>
+            <param name="Y"> Y coordinate of the tile. </param>
+        </member>
+        <member name="M:checkers.Models.Coordinate.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Coordinates of a tile on the board.
+            </summary>
+            <param name="X"> X coordinate of the tile. </param>
+            <param name="Y"> Y coordinate of the tile. </param>
+        </member>
+        <member name="P:checkers.Models.Coordinate.X">
+            <summary> X coordinate of the tile. </summary>
+        </member>
+        <member name="P:checkers.Models.Coordinate.Y">
+            <summary> Y coordinate of the tile. </summary>
+        </member>
+        <member name="T:checkers.Models.Game">
+            <summary>
+            Represents a game of checkers.
+            </summary>
+        </member>
+        <member name="F:checkers.Models.Game.Board">
+            <summary>
+            Board of the game.
+            </summary>
+        </member>
+        <member name="M:checkers.Models.Game.#ctor(System.String[],System.Boolean)">
+            <summary>
+            Creates a new game.
+            </summary>
+            <param name="boardPattern"> Pattern of the board. </param>
+            <param name="isLightFirst"> Is light player can move first. </param>
+        </member>
+        <member name="M:checkers.Models.Game.GetGameStatus">
+            <summary>
+            Gets the current game status.
+            </summary>
+            <returns> Current game status. </returns>
+        </member>
+        <member name="M:checkers.Models.Game.IsPossibleMove(checkers.Models.Move)">
+            <summary>
+            Checks if the move is possible.
+            </summary>
+            <param name="move"> Move to check. </param>
+            <returns> True if the move is possible, false otherwise. </returns>
+        </member>
+        <member name="M:checkers.Models.Game.ApplyMove(checkers.Models.Piece,checkers.Models.Coordinate)">
+            <summary>
+            Applies the move to the board.
+            </summary>
+            <param name="piece"> Piece to move. </param>
+            <param name="to"> Coordinate to move to. </param>
+            <returns> Move that was applied. </returns>
+        </member>
+        <member name="T:checkers.Models.GameStatus">
+            <summary>
+            Helper class for support game status.
+            </summary>
+        </member>
+        <member name="F:checkers.Models.GameStatus.LightPlayerTurn">
+            <summary>
+            Light player turn.
+            </summary>
+        </member>
+        <member name="F:checkers.Models.GameStatus.DarkPlayerTurn">
+            <summary>
+            Dark player turn.
+            </summary>
+        </member>
+        <member name="F:checkers.Models.GameStatus.LightWon">
+            <summary>
+            Light player win.
+            </summary>
+        </member>
+        <member name="F:checkers.Models.GameStatus.DarkWon">
+            <summary>
+            Dark player win.
+            </summary>
+        </member>
+        <member name="F:checkers.Models.GameStatus.Draw">
+            <summary>
+            Draw.
+            </summary>
+        </member>
+        <member name="T:checkers.Models.Move">
+            <summary>
+            A class that represents moves from one position to another.
+            </summary>
+            <param name="From"> The position from which the move starts. </param>
+            <param name="To"> Positions to which the move can be made. </param>
+            <param name="IsTaking"> A boolean value that indicates whether the move is a taking move. </param>
+        </member>
+        <member name="M:checkers.Models.Move.#ctor(checkers.Models.Coordinate,System.Collections.Generic.HashSet{checkers.Models.Coordinate},System.Boolean)">
+            <summary>
+            A class that represents moves from one position to another.
+            </summary>
+            <param name="From"> The position from which the move starts. </param>
+            <param name="To"> Positions to which the move can be made. </param>
+            <param name="IsTaking"> A boolean value that indicates whether the move is a taking move. </param>
+        </member>
+        <member name="P:checkers.Models.Move.From">
+            <summary> The position from which the move starts. </summary>
+        </member>
+        <member name="P:checkers.Models.Move.To">
+            <summary> Positions to which the move can be made. </summary>
+        </member>
+        <member name="P:checkers.Models.Move.IsTaking">
+            <summary> A boolean value that indicates whether the move is a taking move. </summary>
+        </member>
+        <member name="M:checkers.Models.Move.AddTo(checkers.Models.Coordinate)">
+            <summary>
+            Add a position to which the move can be made.
+            </summary>
+            <param name="to"> The position to which the move can be made. </param>
+        </member>
+        <member name="M:checkers.Models.Move.IsPossible(checkers.Models.Coordinate)">
+            <summary>
+            Is possible to make a move from the current position to the specified position.
+            </summary>
+            <param name="c"> The position to which the move is made. </param>
+            <returns> True if the move is possible, otherwise false. </returns>
+        </member>
+        <member name="P:checkers.Models.Move.FromToIsTakingComparer">
+            <summary>
+            Equality comparer for the Move class.
+            </summary>
+        </member>
+        <member name="T:checkers.Models.Piece">
+            <summary>
+            A class that represent piece on the board.
+            </summary>
+        </member>
+        <member name="M:checkers.Models.Piece.SetQueen">
+            <summary>
+            Make the piece a queen.
+            </summary>
+        </member>
+        <member name="M:checkers.Models.Piece.IsLight">
+            <summary>
+            Is the piece light.
+            </summary>
+            <returns> True if piece is light, false if piece is dark. </returns>
+        </member>
+        <member name="M:checkers.Models.Piece.IsQueen">
+            <summary>
+            Is the piece a queen.
+            </summary>
+            <returns> True if piece is a queen, false if piece is not a queen. </returns>
+        </member>
+        <member name="M:checkers.Models.Piece.GetCoords">
+            <summary>
+            Get the coordinate of the piece.
+            </summary>
+            <returns> Coordinate of the piece. </returns>
+        </member>
+        <member name="M:checkers.Models.Piece.MoveTo(checkers.Models.Coordinate)">
+            <summary>
+            Move the piece to a specific coordinate.
+            </summary>
+            <param name="moveCoordinate"> Coordinate to move to. </param>
+        </member>
+        <member name="M:checkers.Models.Piece.GetMoves(checkers.Models.Board)">
+            <summary>
+            Get the possible moves for the piece.
+            </summary>
+            <param name="board"> Board to get the moves from. </param>
+            <returns> Object of class <see cref="T:checkers.Models.Move"/>. </returns>
+        </member>
+        <member name="M:checkers.Models.Piece.#ctor(checkers.Models.Coordinate,System.Boolean,System.Boolean)">
+            <summary>
+            Create a new piece.
+            </summary>
+            <param name="coordinate"> Coordinate of the piece. </param>
+            <param name="isLight"> Is the piece light. </param>
+            <param name="isQueen"> Is the piece a queen, default is false. </param>
+        </member>
+        <member name="P:checkers.Models.Piece.CoordinateIsLightIsQueenComparer">
+            <summary>
+            Equality comparer for the piece.
+            </summary>
+        </member>
+        <member name="T:checkers.Models.Player">
+            <summary>
+            Represents a player in the game of checkers.
+            </summary>
+        </member>
+        <member name="M:checkers.Models.Player.IsLightPlayer">
+            <summary>
+            Is this player the light player?
+            </summary>
+            <returns> True if this player is the light player, false otherwise. </returns>
+        </member>
+        <member name="M:checkers.Models.Player.GetAllPieces(checkers.Models.Board)">
+            <summary>
+            Gets the player's pieces.
+            </summary>
+            <param name="board"> The board to get the pieces from. </param>
+            <returns> List of <see cref="T:checkers.Models.Piece"/>. </returns>
+        </member>
+        <member name="M:checkers.Models.Player.GetAllPossibleMoves(checkers.Models.Board)">
+            <summary>
+            Gets all possible moves for this player.
+            </summary>
+            <param name="board"> The board to get the moves from. </param>
+            <returns> List of <see cref="T:checkers.Models.Move"/>. </returns>
+        </member>
+        <member name="M:checkers.Models.Player.#ctor(System.Boolean)">
+            <summary>
+            Create a new player.
+            </summary>
+            <param name="lightPlayer"> Is this player the light player? </param>
+        </member>
+        <member name="T:checkers.ViewLocator">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.ViewLocator.Build(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.ViewLocator.Match(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:checkers.ViewModels.MainWindowViewModel">
+            <inheritdoc />
+        </member>
+        <member name="P:checkers.ViewModels.MainWindowViewModel.GameTiles">
+            <summary>
+            Observable collection of tiles that represent the game board
+            </summary>
+        </member>
+        <member name="P:checkers.ViewModels.MainWindowViewModel.PiecesTypes">
+            <summary>
+            Observable collection of pieces that represent the game board
+            </summary>
+        </member>
+        <member name="P:checkers.ViewModels.MainWindowViewModel.CurrentGameStatus">
+            <summary>
+            Current game status
+            </summary>
+        </member>
+        <member name="P:checkers.ViewModels.MainWindowViewModel.SelectSquareCommand">
+            <summary>
+            Selects a tile on the board
+            </summary>
+        </member>
+        <member name="M:checkers.ViewModels.MainWindowViewModel.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="T:checkers.ViewModels.Tile">
+            <summary>
+            Helper class for support highlighting tiles in the board
+            </summary>
+        </member>
+        <member name="F:checkers.ViewModels.Tile.Light">
+            <summary>
+            Light tile
+            </summary>
+        </member>
+        <member name="F:checkers.ViewModels.Tile.Dark">
+            <summary>
+            Dark tile
+            </summary>
+        </member>
+        <member name="F:checkers.ViewModels.Tile.Selected">
+            <summary>
+            Selected tile - this is the tile that the user has clicked on
+            </summary>
+        </member>
+        <member name="F:checkers.ViewModels.Tile.Highlighted">
+            <summary>
+            Highlighted tile - this is the tile that the user can move to
+            </summary>
+        </member>
+        <member name="T:checkers.ViewModels.ViewModelBase">
+            <inheritdoc />
+        </member>
+        <member name="T:checkers.Views.MainWindow">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.Views.MainWindow.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:checkers.Views.MainWindow.InitializeComponent(System.Boolean,System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+            <param name="attachDevTools">Should the dev tools be attached.</param>
+        </member>
+    </members>
+</doc>
